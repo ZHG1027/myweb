@@ -284,7 +284,7 @@
                     </div>
                 </div>
             </a>
-           <a href="competitions.html" class="contest-link" title="查看比赛详情">
+            <a href="competitions.html" class="contest-link" title="查看比赛详情">
                 <div class="contest-card">
                     <div class="contest-name">中国东南地区数学奥林匹克</div>
                     <div class="contest-meta">
@@ -320,52 +320,60 @@
     </div>
 
     <script>
-        // 原创题数据（保持不变）
+        // 每个题目都带有固定的 id，用于生成链接，方便以后插入新题
         const problems = [
-            { title: "鸿煦杯的问题.", excerpt: "设$p$是质数，整数$n>1$.求证：对任意整数$N \\ge \\frac{n+2}{2}$...", geo: false },
-            { title: "答案也优雅的代数.", excerpt: "设$n$为正整数，非负实数$0 = a_0 \\le a_1 \\le \\dots \\le a_n = 3$...", geo: false },
-            { title: "3.（题面优雅的数论）", excerpt: "称一个正整数$k$为优雅的，当且仅当可以将它的十进制表示分成两段...", geo: false },
-            { title: "神秘的三角不等式.", excerpt: "求最大的正实数$C$，使得对任意$\\alpha_1,\\alpha_2,\\dots$...", geo: false },
-            { title: "5.（漂亮的代数题）", excerpt: "给定正整数$n$.设$a_1,a_2,\\dots,a_n$是不全相等的实数...", geo: false },
-            { title: "6.（字母都优雅的几何！）", excerpt: "如图，在$\\triangle ABC$中，$M$为$BC$的中点...", geo: true, img: "image001.png" },
-            { title: "最优雅的组合.", excerpt: "小猫和小狐在2024年的日历中玩一个游戏...", geo: false },
-            { title: "8.（即兴编的几何）", excerpt: "如图，$\\triangle ABC$的外心为$O$，$\\omega$为$\\triangle OBC$的外接圆...", geo: true, img: "image002.png" },
-            { title: "神秘的结论题", excerpt: "有$\\frac{1}{2}n(n+1)$个正整数$x_{i,j}$...", geo: false },
-            { title: "不知道哪里改编来的题", excerpt: "设整数$m,n \\ge 2$.设$2m$个正整数...", geo: false },
-            { title: "闹出过风波的题", excerpt: "如图，在圆内接四边形$ABCD$中，$AB,CD$交于点$E$...", geo: true, img: "image003.png" },
-            { title: "早期原创代数.", excerpt: "设$n$是正整数，$a_1,a_2,\\dots,a_n$是正实数...", geo: false },
-            { title: "马爽的游戏.", excerpt: "小马和小爽玩如下游戏：小马剪下一块面积为$S$的纸片...", geo: false },
-            { title: "也许没有答案的代数组合.", excerpt: "设$a_1,a_2,\\dots,a_n$是正整数，集合$S=...$", geo: false },
-            { title: "又一个也许没有答案的代数组合.", excerpt: "设$n$为正整数，$S$是一些三元有序数组...", geo: false },
-            { title: "改编的数论.", excerpt: "证明：存在严格单调递增的正整数序列$\\{a_n\\}$...", geo: false },
-            { title: "猫头鹰的蛋.", excerpt: "给定素数$p$，集合$S=\\{0,1,...,p-1\\}$...", geo: false },
-            { title: "疯狂的Sigma.", excerpt: "设$p$为奇素数，$a_1 < a_2 < \\cdots < a_n$为整数...", geo: false },
-            { title: "第一道原创.", excerpt: "在$\\triangle ABC$中，内切圆$\\odot I$切边$BC,CA,AB$于$D,E,F$...", geo: true, img: "image004.png" },
-            { title: "ZLM的生日题.", excerpt: "在$\\triangle ABC$中，$L,M,N$为边中点，射线$AL,BM,CN$交外接圆...", geo: true, img: "image005.png" },
-            { title: "被遗忘了的代数.", excerpt: "设$x_1,x_2,\\cdots,x_{2025}$是正实数...", geo: false },
-            { title: "ZLW的组合.", excerpt: "会议室有$m$行$n$列，坐着一个巨佬...", geo: false },
-            { title: "神秘改编.", excerpt: "证明：存在若干个互不相同的素数之和为$72827$。", geo: false },
-            { title: "简单的代数.", excerpt: "$2025$个实数$x_1,...,x_{2025}$满足和为$2025$...", geo: false },
-            { title: "又一道神秘的改编.", excerpt: "是否存在$n$个非负实数$a_1,...,a_n$满足...", geo: false },
-            { title: "Pell方程相关.", excerpt: "设正整数$d$不是完全平方数，方程$x^2 - dy^2 = 1$...", geo: false },
-            { title: "高铁网络规划.", excerpt: "直线上$n$个高铁站，若干条线路...", geo: false },
-            { title: "神秘的三元！", excerpt: "设$x,y,z$为非负实数，且$x+y+z=3$...", geo: false },
-            { title: "猜猜怎么做", excerpt: "求最小的实常数$C$，使对任意非负实数$a_1,...,a_{728}$...", geo: false },
-            { title: "一个猜想", excerpt: "平面格点集$P$，求最大的正整数$n$...", geo: false },
-            { title: "西部改编.", excerpt: "正整数$n$及非负整数$a_i$，满足$\\sum x_i y_i = 2025$...", geo: false },
-            { title: "数字和与进位制的问题.", excerpt: "对十进制数字和函数$S_i(n)$...", geo: false },
-            { title: "拙劣的模仿.", excerpt: "对有限正整数集合$S$定义陶集$\\tau(S)$...", geo: false },
-            { title: "爆难构造题.", excerpt: "证明存在无穷多个正整数$n$...", geo: false },
-            { title: "简单的平几.", excerpt: "如图，在$\\triangle ABC$中，$\\angle BAC > 90^\\circ$...", geo: true, img: "image006.png" },
-            { title: "CXM！.", excerpt: "称整系数多项式$f(x)$为合格的...", geo: false },
-            { title: "置换相关.", excerpt: "设$n \\ge 2$为正整数，所有置换构成集合$S$...", geo: false },
-            { title: "单位根的应用.", excerpt: "求正整数组$(x_1,\\dots,x_{2026})$的个数...", geo: false }
+            // 置顶新题
+            { id: "039", title: "易湃改编的几何", excerpt: "如图, 在 $\\triangle ABC$ 中, $M$ 在 $BC$ 上且满足$MA=MC$...", geo: true, img: "image007.png" },
+            // 原有题目（id 保持与 problem.html 一致）
+ { id: "040", title: "田忌赛马", excerpt: "（受爱尖子协议保护，该题目暂不可见，至2027.05.23放开浏览）", geo: false },
+            { id: "041", title: "阶乘与整除", excerpt: "（受学而思协议保护，该题目暂不可见）", geo: false },
+            { id: "042", title: "猿来的几何", excerpt: "（受学而思协议保护，该题目暂不可见）", geo: false },
+            { id: "001", title: "鸿煦杯的问题.", excerpt: "设$p$是质数，整数$n>1$.求证：对任意整数$N \\ge \\frac{n+2}{2}$...", geo: false },
+            { id: "002", title: "答案也优雅的代数.", excerpt: "设$n$为正整数，非负实数$0 = a_0 \\le a_1 \\le \\dots \\le a_n = 3$...", geo: false },
+            { id: "003", title: "3.（题面优雅的数论）", excerpt: "称一个正整数$k$为优雅的，当且仅当可以将它的十进制表示分成两段...", geo: false },
+            { id: "004", title: "神秘的三角不等式.", excerpt: "求最大的正实数$C$，使得对任意$\\alpha_1,\\alpha_2,\\dots$...", geo: false },
+            { id: "005", title: "5.（漂亮的代数题）", excerpt: "给定正整数$n$.设$a_1,a_2,\\dots,a_n$是不全相等的实数...", geo: false },
+            { id: "006", title: "6.（字母都优雅的几何！）", excerpt: "如图，在$\\triangle ABC$中，$M$为$BC$的中点...", geo: true, img: "image001.png" },
+            { id: "007", title: "最优雅的组合.", excerpt: "小猫和小狐在2024年的日历中玩一个游戏...", geo: false },
+            { id: "008", title: "8.（即兴编的几何）", excerpt: "如图，$\\triangle ABC$的外心为$O$，$\\omega$为$\\triangle OBC$的外接圆...", geo: true, img: "image002.png" },
+            { id: "009", title: "神秘的结论题", excerpt: "有$\\frac{1}{2}n(n+1)$个正整数$x_{i,j}$...", geo: false },
+            { id: "010", title: "不知道哪里改编来的题", excerpt: "设整数$m,n \\ge 2$.设$2m$个正整数...", geo: false },
+            { id: "011", title: "闹出过风波的题", excerpt: "如图，在圆内接四边形$ABCD$中，$AB,CD$交于点$E$...", geo: true, img: "image003.png" },
+            { id: "012", title: "早期原创代数.", excerpt: "设$n$是正整数，$a_1,a_2,\\dots,a_n$是正实数...", geo: false },
+            { id: "013", title: "马爽的游戏.", excerpt: "小马和小爽玩如下游戏：小马剪下一块面积为$S$的纸片...", geo: false },
+            { id: "014", title: "也许没有答案的代数组合.", excerpt: "设$a_1,a_2,\\dots,a_n$是正整数，集合$S=...$", geo: false },
+            { id: "015", title: "又一个也许没有答案的代数组合.", excerpt: "设$n$为正整数，$S$是一些三元有序数组...", geo: false },
+            { id: "016", title: "改编的数论.", excerpt: "证明：存在严格单调递增的正整数序列$\\{a_n\\}$...", geo: false },
+            { id: "017", title: "猫头鹰的蛋.", excerpt: "给定素数$p$，集合$S=\\{0,1,...,p-1\\}$...", geo: false },
+            { id: "018", title: "疯狂的Sigma.", excerpt: "设$p$为奇素数，$a_1 < a_2 < \\cdots < a_n$为整数...", geo: false },
+            { id: "019", title: "第一道原创.", excerpt: "在$\\triangle ABC$中，内切圆$\\odot I$切边$BC,CA,AB$于$D,E,F$...", geo: true, img: "image004.png" },
+            { id: "020", title: "ZLM的生日题.", excerpt: "在$\\triangle ABC$中，$L,M,N$为边中点，射线$AL,BM,CN$交外接圆...", geo: true, img: "image005.png" },
+            { id: "021", title: "被遗忘了的代数.", excerpt: "设$x_1,x_2,\\cdots,x_{2025}$是正实数...", geo: false },
+            { id: "022", title: "ZLW的组合.", excerpt: "会议室有$m$行$n$列，坐着一个巨佬...", geo: false },
+            { id: "023", title: "神秘改编.", excerpt: "证明：存在若干个互不相同的素数之和为$72827$。", geo: false },
+            { id: "024", title: "简单的代数.", excerpt: "$2025$个实数$x_1,...,x_{2025}$满足和为$2025$...", geo: false },
+            { id: "025", title: "又一道神秘的改编.", excerpt: "是否存在$n$个非负实数$a_1,...,a_n$满足...", geo: false },
+            { id: "026", title: "Pell方程相关.", excerpt: "设正整数$d$不是完全平方数，方程$x^2 - dy^2 = 1$...", geo: false },
+            { id: "027", title: "高铁网络规划.", excerpt: "直线上$n$个高铁站，若干条线路...", geo: false },
+            { id: "028", title: "神秘的三元！", excerpt: "设$x,y,z$为非负实数，且$x+y+z=3$...", geo: false },
+            { id: "029", title: "猜猜怎么做", excerpt: "求最小的实常数$C$，使对任意非负实数$a_1,...,a_{728}$...", geo: false },
+            { id: "030", title: "一个猜想", excerpt: "平面格点集$P$，求最大的正整数$n$...", geo: false },
+            { id: "031", title: "西部改编.", excerpt: "正整数$n$及非负整数$a_i$，满足$\\sum x_i y_i = 2025$...", geo: false },
+            { id: "032", title: "数字和与进位制的问题.", excerpt: "对十进制数字和函数$S_i(n)$...", geo: false },
+            { id: "033", title: "拙劣的模仿.", excerpt: "对有限正整数集合$S$定义陶集$\\tau(S)$...", geo: false },
+            { id: "034", title: "爆难构造题.", excerpt: "证明存在无穷多个正整数$n$...", geo: false },
+            { id: "035", title: "简单的平几.", excerpt: "如图，在$\\triangle ABC$中，$\\angle BAC > 90^\\circ$...", geo: true, img: "image006.png" },
+            { id: "036", title: "CXM！.", excerpt: "称整系数多项式$f(x)$为合格的...", geo: false },
+            { id: "037", title: "置换相关.", excerpt: "设$n \\ge 2$为正整数，所有置换构成集合$S$...", geo: false },
+            { id: "038", title: "单位根的应用.", excerpt: "求正整数组$(x_1,\\dots,x_{2026})$的个数...", geo: false }
+         
+           
         ];
 
         const container = document.getElementById('original-list');
-        problems.forEach((p, index) => {
-            const fileIndex = String(index + 1).padStart(3, '0');
-            const detailPage = `problem.html?id=${fileIndex}`;
+        problems.forEach((p) => {
+            // 使用 p.id 生成链接，不再依赖索引
+            const detailPage = `problem.html?id=${p.id}`;
 
             const card = document.createElement('div');
             card.className = 'problem-card';
