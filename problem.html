@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>题目详情 · 小盾构的数学站</title>
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+                ignoreHtmlClass: 'no-math'
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+    <style>
+        :root {
+            --bg: #faf8f5;
+            --text: #2c2416;
+            --accent: #c75b39;
+            --border: #e8e0d5;
+            --radius: 18px;
+            --shadow-md: 0 4px 24px rgba(0,0,0,0.06);
+        }
+        body {
+            font-family: "Noto Serif SC", "Source Han Serif SC", "STSong", "Songti SC", "SimSun", "KaiTi", "楷体", "Georgia", serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0; padding: 2rem 1.5rem;
+            display: flex; justify-content: center;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 900px; width: 100%;
+            background: #fff;
+            border-radius: var(--radius);
+            padding: 2.5rem 2rem;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border);
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            font-family: "Noto Sans SC", sans-serif;
+            font-size: 0.95rem;
+        }
+        .back-link:hover { text-decoration: underline; }
+        .problem-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent);
+            display: inline-block;
+        }
+        .problem-content {
+            font-size: 1rem;
+            line-height: 1.8;
+            word-spacing: 0.05em;
+        }
+        .problem-content p { margin: 1em 0; }
+        .problem-content img {
+            max-width: 100%;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            display: block;
+        }
+        .not-found {
+            text-align: center;
+            color: #9b8c7c;
+            font-size: 1.2rem;
+            padding: 3rem 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="main-container">
+        <a href="home.html" class="back-link">← 返回主页</a>
+        <div id="problem-detail"></div>
+    </div>
+
+    <script>
+        // 如果直接访问 problem.html 不带参数，自动跳转到 home.html
+        const params = new URLSearchParams(window.location.search);
+        const id = params.get('id');
+        if (!id) {
+            window.location.href = 'home.html';
+            throw new Error('缺少参数，返回主页');
+        }
+
+        const problemsData = [
+            {
+                id: "001",
+                title: "鸿煦杯的问题.",
+                content: `设 $p$ 是质数，整数 $n>1$. 求证：对任意整数 $N \\ge \\frac{n+2}{2}$，都存在正整数 $x$，使得 $x$ 加上 $n$ 后在 $p$ 进制下不进位，且 $|x-N| \\le \\frac{n+1}{2}$.`
+            },
+            {
+                id: "002",
+                title: "答案也优雅的代数.",
+                content: `设 $n$ 为正整数，非负实数 $0 = a_0 \\le a_1 \\le \\dots \\le a_n = 3$. <br>
+                (1) 求最大的正实数 $C$，使得对任意正整数 $n$ 及满足要求的 $(a_0,a_1,\\dots,a_n)$，均有
+                $$\\sum_{k=1}^n 3^{4a_k}(a_k - a_{k-1}) \\ge C.$$
+                (2) 在 (1) 的条件下，求最大的正实数 $D$，使得对任意正整数 $n$ 及满足要求的 $(a_0,a_1,\\dots,a_n)$，均有
+                $$\\sum_{k=1}^n 3^{4a_k}(a_k - a_{k-1}) \\ge C + \\frac{D^2}{n}.$$`
+            },
+            {
+                id: "003",
+                title: "3.（题面优雅的数论）",
+                content: `称一个正整数 $k$ 为优雅的，当且仅当可以将它的十进制表示分成两段首位非零的正整数，并且这两个正整数之积为完全平方数.（例如，$728$ 可以分拆成 $7$ 与 $28$，它们之积为 $196 = 14^2$，所以 $728$ 是优雅的.）<br>
+                (1) 对正整数 $m$，设不超过 $m$ 的优雅的正整数有 $R(m)$ 个，求证：存在正实数 $C$，满足对任意正整数 $n$，恒有
+                $$R(n) \\le C\\sqrt{n}(\\lg n)^2.$$
+                (2) 进一步，称一个正整数 $k$ 为非常优雅的，当且仅当其十进制表示中不含数字 $0$，并且任意将它的十进制表示分成两段正整数，这两个正整数之积均为完全平方数. 问：非常优雅的正整数是否有无穷多？若有，请给出论证；否则给出最大的非常优雅的正整数.`
+            },
+            {
+                id: "004",
+                title: "神秘的三角不等式.",
+                content: `求最大的正实数 $C$，使得对任意 $\\alpha_1,\\alpha_2,\\dots,\\alpha_{728} \\in \\left(-\\frac{\\pi}{4},\\frac{\\pi}{4}\\right)$，$\\alpha_i \\neq \\alpha_{i+1}$（$i=1,2,\\dots,728$），$\\alpha_{729} = \\alpha_1$，总有
+                $$\\sum_{k=1}^{728} \\left( \\frac{\\tan(\\alpha_k - \\alpha_{k+1})}{\\tan\\alpha_k - \\tan\\alpha_{k+1}} + \\sin^2 \\alpha_k \\right) \\ge C.$$`
+            },
+            {
+                id: "005",
+                title: "5.（漂亮的代数题）",
+                content: `给定正整数 $n$. 设 $a_1,a_2,\\dots,a_n$ 是不全相等的实数，记 $M = \\max\\{a_1,a_2,\\dots,a_n\\}$. 求
+                $$F = \\frac{M\\sum_{k=1}^n a_k}{\\sum_{k=1}^n (a_k - a_{k+1})^2},$$
+                其中 $a_{n+1} = a_1$.`
+            },
+            {
+                id: "006",
+                title: "6.（字母都优雅的几何！）",
+                content: `如图，在 $\\triangle ABC$ 中，$M$ 为 $BC$ 的中点，$H$ 为垂心. 点 $Q$ 在 $AC$ 上，满足 $Q,M,H$ 三点共线. 点 $X$ 在 $AB$ 上，满足 $CA = CX$. 点 $S$ 在 $AH$ 上，满足 $SX \\perp AB$，过 $S$ 作 $AC$ 的平行线交 $AB$ 于点 $T$. 点 $Y$ 在过 $A$ 平行于 $BC$ 的直线上，满足 $M,T,Y$ 三点共线. 求证：$\\angle YQM = 90^\\circ$.`,
+                img: "image001.png"
+            },
+            {
+                id: "007",
+                title: "最优雅的组合.",
+                content: `小猫和小狐在 2024 年的日历中玩一个游戏. 小狐首先秘密地选择一个日期. 称一个回合为：小猫选定一个日期 $i$ 月 $j$ 日，若小狐最近一次选择的不是这个日期，则小狐接着选择它当前选择的日期的前一天或者后一天（前提这一天存在，也即若小狐当前选择 1 月 1 日，则其只能接着选择 1 月 2 日；若小狐当前选择 12 月 31 日，则其只能接着选择 12 月 30 日），且小猫不知道小狐换到了哪一天，该回合结束；若小狐最近一次选择的是 $i$ 月 $j$ 日，则小猫获胜，游戏结束. 求最小的实常数 $C$，使得小猫总是有策略在不超过 $C$ 个回合之内获胜.`
+            },
+            {
+                id: "008",
+                title: "8.（即兴编的几何）",
+                content: `如图，$\\triangle ABC$ 的外心为 $O$，$\\omega$ 为 $\\triangle OBC$ 的外接圆，$V$ 为 $\\omega$ 上优弧 $BC$ 的中点，$AO$ 交 $\\omega$ 于点 $T$，$\\omega$ 在 $B,C$ 处的切线交于点 $K$. 设 $KT$ 交 $\\omega$ 于点 $S$，$\\triangle AST$ 的外接圆与直线 $TB,TC$ 分别交于点 $M,N$，$MN$ 交直线 $BC$ 于点 $R$，$AR$ 交 $\\triangle AST$ 的外接圆于点 $U$. 求证：$U,V,T$ 三点共线.`,
+                img: "image002.png"
+            },
+            {
+                id: "009",
+                title: "神秘的结论题",
+                content: `有 $\\frac{1}{2}n(n+1)$ 个正整数 $x_{i,j}$（$1 \\le j \\le i \\le n$）. 对 $1 \\le i \\le n$，记 $A_i = \\{x_{i,1},x_{i,2},\\dots,x_{i,i}\\}$. 称 $X = \\{y_1,y_2,\\dots,y_k\\}$ 为 $A_i$ 的一个生成子集，如果对任意 $1 \\le j \\le k$，均存在 $t \\in A_i \\setminus X$，使得 $t + y_j - \\gcd(t,y_j) \\le 2024$. 设 $A_i$ 共有 $b_i$ 个生成子集，$a_i$ 为 $b_i$ 模 $2$ 的余数. 记 $T = \\overline{a_n a_{n-1} \\cdots a_1}_{(2)}$，求最小的常数 $c$，使得恒有 $T \\le c \\cdot 2^{n-3}$.`
+            },
+            {
+                id: "010",
+                title: "不知道哪里改编来的题",
+                content: `设整数 $m,n \\ge 2$. 设 $2m$ 个正整数 $a_1,a_2,\\dots,a_m$ 及 $b_1,b_2,\\dots,b_m$ 满足
+                $$0 < b_i - a_i < n,\\quad \\sum_{i=1}^m (b_i - a_i) \\ge n^2 - m + 1,$$
+                且
+                $$a_1 - a_2 \\ge a_2 - a_3 \\ge \\dots \\ge a_{m-1} - a_m,$$
+                $$b_1 - b_2 \\le b_2 - b_3 \\le \\dots \\le b_{m-1} - b_m.$$
+                求证：存在由两两不同的正整数构成的数列 $i_1,i_2,\\dots,i_{n+1}$，满足对 $1 \\le k \\le n+1$，$i_k \\in \\{1,2,\\dots,m\\}$，且存在 $c_{i_k} \\in [a_{i_k},b_{i_k}]$，使得
+                $$\\frac{c_{i_1} - c_{i_2}}{i_1 - i_2} = \\frac{c_{i_2} - c_{i_3}}{i_2 - i_3} = \\dots = \\frac{c_{i_n} - c_{i_{n+1}}}{i_n - i_{n+1}}.$$`
+            },
+            {
+                id: "011",
+                title: "闹出过风波的题",
+                content: `如图，在圆内接四边形 $ABCD$ 中，$AB,CD$ 交于点 $E$，$AD,BC$ 交于点 $F$，其牛顿线交 $CD,AB$ 于点 $M,N$. 设 $\\triangle NEM$ 的外接圆与 $ABCD$ 的外接圆的根轴交 $AB$ 于点 $K$、交 $EF$ 于点 $T$. 过 $T$ 作 $BD$ 的平行线交 $ND$ 于点 $X$. 求证：$FX \\parallel AB$.`,
+                img: "image003.png"
+            },
+            {
+                id: "012",
+                title: "早期原创代数.",
+                content: `设 $n$ 是正整数，$a_1,a_2,\\dots,a_n$ 是正实数，$\\theta_1,\\theta_2,\\dots,\\theta_n \\in [0,2\\pi)$. 求证：存在 $\\alpha \\in [0,2\\pi)$，使得
+                $$\\sum_{k=1}^n a_k \\sin(\\theta_k + \\alpha) = 0.$$`
+            },
+            {
+                id: "013",
+                title: "马爽的游戏.",
+                content: `小马和小爽玩如下游戏：小马首先从一张无穷大的纸上剪下一块面积为 $S$ 的小纸片（形状和大小由小马决定），并在其正面用笔画一些分界线，将该小纸片的正面划分为 $n$ 个封闭区域（$n$ 为正整数）。接着小马用 $n$ 种颜色染这块小纸片的正面，每块区域恰染一种颜色，每种颜色都要用到。接下来小马翻过这张纸片，在其背面也用笔画一些分界线并将其划分为 $n$ 个封闭区域。现在小爽需要对背面用同样的 $n$ 种颜色染色，每块区域恰染一种颜色，每种颜色都要用到。给定正整数 $n$，求最小的正实数 $c = c(n)$，使得无论小马如何操作，小爽总能适当地染色，使得整块纸片两面颜色相同的区域的面积至少为 $cS$.`
+            },
+     {
+    id: "014",
+    title: "也许没有答案的代数组合.",
+    content: `设 $a_1,a_2,\\dots,a_n$ 是正整数，集合
+$$
+S = \\left\\{ \\sum_{i\\in I} a_i \\,\\bigg|\\, I \\subseteq [n],\\, I \\neq \\emptyset \\right\\} \\cup \\{0\\}.
+$$
+若 $|S| = 2^n$，则是否可以做到 $\\max_{1\\le i\\le n} a_i < 2^{n-1}$？`
+},
+{
+    id: "015",
+    title: "又一个也许没有答案的代数组合.",
+    content: `设 $n$ 为正整数，$S$ 是一些三元有序数组 $(i,j,k)$（$i\\lt j\\lt k$）构成的集合.$\\frac{n(n-1)}{2}$ 个实数 $x_{i,j}$（$1\\le i\\lt j\\le n$）满足对任意 $(i,j,k)\\in S$，均有 $x_{i,j} + x_{j,k} = x_{i,k}$.若此时一定存在实数 $y_1,y_2,\\dots,y_n$ 使得对任意 $1\\le i\\lt j\\le n$，均有 $x_{i,j} = y_i - y_j$，求 $|S|$ 的最小值.`
+},
+            {
+                id: "016",
+                title: "改编的数论.",
+                content: `证明：存在严格单调递增的正整数序列 $\\{a_n\\}_{n=1}^{+\\infty}$，满足对任意正整数 $k$，序列 $\\{a_n\\}$ 前 $k$ 项的算术平均数为整数，且 $a_k < 2k$.`
+            },
+            {
+                id: "017",
+                title: "猫头鹰的蛋.",
+                content: `给定素数 $p$，设集合 $S = \\{0,1,2,\\cdots,p-1\\}$。对集合 $A \\subseteq S$，定义 $A$ 的陶模为 $\\sum_{x \\in A} x$ 模 $p$ 的最小非负剩余，特别地，空集的陶模为 $0$。有 $p$ 只猫头鹰 $Q_0,Q_1,\\cdots,Q_{p-1}$ 在下蛋。对任意陶模为 $i$ 的集合 $A \\subseteq S$，第 $i$ 只猫头鹰 $Q_i$ 下了一个蛋并在蛋上标上 $A$。如此进行下去，到所有猫头鹰共下了 $2^p$ 个蛋时停止。此时若一只猫头鹰下蛋的个数不少于其它任何一只猫头鹰，则称其为美好的。求美好的猫头鹰的只数。`
+            },
+            {
+                id: "018",
+                title: "疯狂的Sigma.",
+                content: `设 $p$ 为奇素数，$a_1 < a_2 < \\cdots < a_n$ 为整数，$p \\ge n+1$，证明：
+                $$\\sum_{r=1}^{p-1} \\sum_{r_1=1}^{a_1-1} \\sum_{r_2=1}^{a_2-1} \\cdots \\sum_{r_n=1}^{a_n-1} \\min_{1 \\le i \\le n}\\{r_i\\} \\cdot \\min_{1 \\le j \\le n}\\{a_j - r_j\\} \\equiv 0 \\pmod p.$$`
+            },
+            {
+                id: "019",
+                title: "第一道原创.",
+                content: `在 $\\triangle ABC$ 中，内切圆 $\\odot I$ 切边 $BC,CA,AB$ 于点 $D,E,F$。$M$ 为 $\\odot(ABC)$ 的弧 $BAC$ 的中点，射线 $MI,AI$ 分别交 $\\triangle ABC$ 的外接圆于 $X,N$。射线 $ND$ 交直线 $AX$ 于点 $P$，射线 $DI$ 交 $\\odot I$ 于点 $K$。求证：$MK \\ge KP$.`,
+                img: "image004.png"
+            },
+            {
+                id: "020",
+                title: "ZLM的生日题.",
+                content: `在 $\\triangle ABC$ 中，$L,M,N$ 分别为边 $BC,CA,AB$ 的中点。射线 $AL,BM,CN$ 交 $\\triangle ABC$ 的外接圆于点 $D,E,F$。设 $D,E,F$ 关于点 $L,M,N$ 的对称点分别为点 $X,Y,Z$。设 $G$ 为 $\\triangle ABC$ 的重心。求证：$G,X,Y,Z$ 四点共圆。`,
+                img: "image005.png"
+            },
+            {
+                id: "021",
+                title: "被遗忘了的代数.",
+                content: `设 $x_1,x_2,\\cdots,x_{2025}$ 是正实数，且对任意的 $r_1,r_2,\\cdots,r_{2025}$ 是正整数，均有 $S_r = \\sum_{k=1}^{2025} x_k^{r_k}$ 是整数。求证：所有 $x_i$ 均为正整数（$i=1,2,\\cdots,2025$）。`
+            },
+            {
+                id: "022",
+                title: "ZLW的组合.",
+                content: `来来大酒店的会议室有 $m$ 行 $n$ 列，其中坐着有且仅有一个巨佬，并且所有同学都知道巨佬的位置坐标 $(x,y)$。有一个傻逼助教老师想要知道巨佬的位置坐标，她打算通过询问同学的方式得到。设 $i$ 为正整数，第 $i$ 次傻逼助教老师选取一个坐标 $(x_i,y_i)$ 并询问坐在 $(x_i,y_i)$ 的同学：“巨佬在哪里？” 该同学回答一个自然数 $\\min\\{|x-x_i|,|y-y_i|\\}$。求最小的正整数 $C = C(n,m)$，使得傻逼助教老师可以保证在 $C$ 次询问之内得到巨佬的位置坐标。`
+            },
+            {
+                id: "023",
+                title: "神秘改编.",
+                content: `证明：存在若干个互不相同的素数之和为 $72827$。`
+            },
+            {
+                id: "024",
+                title: "简单的代数.",
+                content: `设 $2025$ 个实数 $x_1,x_2,\\cdots,x_{2025}$ 满足 $\\sum_{k=1}^{2025} x_k = 2025$，求 $F = \\sum_{k=1}^{2025} \\|x_k\\|$ 的最大值。`
+            },
+            {
+                id: "025",
+                title: "又一道神秘的改编.",
+                content: `设 $n \\ge 3$ 为正整数。是否存在 $n$ 个非负实数 $a_1,a_2,\\cdots,a_n$ 满足对任意 $i = 1,2,\\cdots,n$ 有下列条件成立？<br>
+                (i) $\\{x_i x_{i+1}\\} < \\dfrac{1}{2}$；<br>
+                (ii) $\\{2x_i x_{i+1}\\} + \\{(x_i - x_{i+1})^2\\} < 1$；<br>
+                (iii) $\\{x_i^2\\} + \\{x_{i+1}^2\\} \\ge 1$。<br>
+                （注：这里 $x_{n+1} = x_1$，$\\{y\\}$ 表示 $y$ 的小数部分）`
+            },
+            {
+                id: "026",
+                title: "Pell方程相关.",
+                content: `设正整数 $d$ 不是完全平方数，方程 $x^2 - dy^2 = 1$ 的全体正整数解从小到大排列为 $(x_1,y_1),(x_2,y_2),\\dots$。若正整数 $n$ 使得存在正整数 $\\alpha$ 满足 $x_n = 2^\\alpha$，求 $n$ 的所有可能值。`
+            },
+            {
+                id: "027",
+                title: "高铁网络规划.",
+                content: `设 $n \\ge 2$ 为正整数，在一条直线上依次排列着 $n$ 个高铁站 $S_1,S_2,\\dots,S_n$。现在有若干条高速铁路，每条高速铁路均是从 $S_i$ 出发，经过 $S_{i+1},S_{i+2}\\dots,S_{j-1}$，最后抵达 $S_j$，其中 $1 \\le i \\le j \\le n$ 为正整数（没有写错，允许 $i=j$）。已知 $S_1,S_2,\\dots,S_n$ 中的每个车站都是一条高速铁路的起点站或者终点站，证明：可以选出若干条高速铁路，使得任意两条高速铁路至多有一个公共的站点，并且选出的高速铁路覆盖了 $S_1,S_2,\\dots,S_n$ 中至少 $\\left\\lfloor \\frac{n}{2} \\right\\rfloor + 1$ 个站点。`
+            },
+            {
+                id: "028",
+                title: "神秘的三元！",
+                content: `设 $x,y,z$ 为非负实数，且 $x+y+z=3$。证明：$\\sqrt{x} + \\sqrt{y} + \\sqrt{z} \\ge xy + yz + zx$。`
+            },
+            {
+                id: "029",
+                title: "猜猜怎么做",
+                content: `求最小的实常数 $C$，使对任意非负实数 $a_1,a_2,\\dots,a_{728}$，满足 $a_i \\le 1$（$i=1,2,\\dots,728$），均有
+                $$\\sum_{k=1}^{728} \\frac{1}{1 + a_k a_{k+1} \\cdots a_{k+363}} \\le \\frac{C}{1 + \\sqrt{a_1 a_2 \\cdots a_{728}}},$$
+                其中脚标按照 $\\pmod{728}$ 理解。`
+            },
+            {
+                id: "030",
+                title: "一个猜想",
+                content: `记平面直角坐标系上的点集
+                $$P = \\{(x,y) \\mid 1 \\le x,y \\le 100,\\ x,y \\in \\mathbb{Z}\\}.$$
+                求最大的正整数 $n$，使得存在点集 $S = \\{P_1,P_2,\\dots,P_n\\} \\subseteq P$，使得不存在 $1 \\le i,j,k,l \\le n$ 满足 $P_i P_j \\parallel P_k P_l$。（这里的平行是指斜率相等，即两条线段所在直线重合也算平行。）`
+            },
+            {
+                id: "031",
+                title: "西部改编.",
+                content: `正整数 $n$ 及非负整数 $a_1,a_2,\\dots,a_n$ 满足 $\\sum_{i=1}^n x_i y_i = 2025$（注意 $n$ 可变），求 $\\sum_{i=1}^n (x_i^2 + 2y_i^2)$ 的最小值。`
+            },
+            {
+                id: "032",
+                title: "数字和与进位制的问题.",
+                content: `对正整数 $n,i$，若 $n$ 的十进制表示为 $\\overline{a_m a_{m-1} \\cdots a_1}_{(10)}$，则记 $S_i(n) = \\sum_{k=1}^m a_k^i$。<br>
+                (1) 证明：对任意正整数 $m,n$，存在正整数 $x$ 使得 $S_1(mx) = S_1(nx)$；<br>
+                (2) 证明：对任意正整数 $m,n$，存在正整数 $x$ 使得 $S_1(mx) = S_1(nx)$ 且 $S_2(mx) = S_2(nx)$。`
+            },
+            {
+                id: "033",
+                title: "拙劣的模仿.",
+                content: `对有限正整数集合 $S$，记 $S$ 的“陶集”为
+                $$\\tau(S) = \\left\\{ \\sum_{x \\in A} x \\,\\bigg|\\, A \\subseteq S,\\ A \\neq \\varnothing \\right\\}.$$
+                设 $S$ 为 $n$ 元正整数集（$n$ 为正整数），求 $|\\tau(S)|$ 的最小值与最大值，其中 $|T|$ 表示有限集 $T$ 的元素个数。`
+            },
+            {
+                id: "034",
+                title: "爆难构造题.",
+                content: `求证：存在无穷多个正整数 $n$，使得存在正整数 $a_1,a_2,\\dots,a_n$（允许相同），满足这 $n$ 个数中至多有 $\\log_2 n$ 个质数、至少出现 $\\log_2 n$ 个不同的数，且满足
+                $$\\sum_{k=1}^n a_k^3 = \\left( \\sum_{k=1}^n a_k \\right)^2.$$`
+            },
+            {
+                id: "035",
+                title: "简单的平几.",
+                content: `如图，在 $\\triangle ABC$ 中，$\\angle BAC > 90^\\circ$，$M$ 为边 $BC$ 的中点，点 $P$ 在线段 $AB$ 上，满足 $\\angle APC = \\frac{1}{2}\\angle AMC$；点 $Q$ 在线段 $AC$ 上，满足 $\\angle AQB = \\frac{1}{2}\\angle AMB$。证明：$\\frac{CQ}{BP} = \\frac{AC}{AB}$。`,
+                img: "image006.png"
+            },
+            {
+                id: "036",
+                title: "CXM！.",
+                content: `称整系数多项式 $f(x)$ 为“合格的”，当且仅当对任意正整数 $n$，均有
+                $$\\prod_{i=1}^n \\prod_{j=1}^n (i+j-1) \\mid (f(n))!.$$
+                若不存在“合格的”整系数多项式 $g(x)$，使得存在无穷多正整数 $k$，满足 $f(k) > g(k)$，则称 $f(x)$ 为“极小合格的”。求所有极小合格的 $f$。`
+            },
+            {
+                id: "037",
+                title: "置换相关.",
+                content: `设 $n \\ge 2$ 为正整数，所有 $\\{1,2,\\dots,n\\}$ 的置换构成集合 $S$。求所有非空集合 $A,B$，满足 $S$ 为 $A,B$ 的无交并，并且满足如下条件：<br>
+                • 若 $\\sigma \\in A, \\pi \\in B$，则 $\\sigma \\circ \\pi \\in B$ 且 $\\pi \\circ \\sigma \\in B$；<br>
+                • 若 $\\sigma,\\pi \\in A$，则 $\\sigma \\circ \\pi \\in A$，且若 $\\sigma,\\pi \\in B$，则 $\\sigma \\circ \\pi \\in A$。`
+            },
+            {
+                id: "038",
+                title: "单位根的应用.",
+                content: `求正整数组 $(x_1,x_2,\\dots,x_{2026})$ 的个数，满足下列三个条件：<br>
+                • $x_i \\in \\{1,2,3,\\dots,2027\\}$（$i=1,2,\\dots,2026$）；<br>
+                • $2027 \\mid (x_i - i)(x_i - 2i)$（$i=1,2,\\dots,2026$）；<br>
+                • $2027 \\mid \\sum_{i=1}^{2026} x_i$。`
+            }
+        ];
+
+        const problem = problemsData.find(p => p.id === id);
+        const detailDiv = document.getElementById('problem-detail');
+
+        if (problem) {
+            document.title = problem.title + ' · 小盾构的数学站';
+            let html = `<h1 class="problem-title">${problem.title}</h1>`;
+            html += `<div class="problem-content">${problem.content}</div>`;
+            if (problem.img) {
+                html += `<img src="${problem.img}" alt="几何配图" style="max-width:100%; border:1px solid #ddd; border-radius:8px; margin-top:1.5rem;">`;
+            }
+            detailDiv.innerHTML = html;
+            if (window.MathJax) {
+                MathJax.typesetPromise([detailDiv]).catch(err => console.log(err));
+            }
+        } else {
+            detailDiv.innerHTML = '<div class="not-found">未找到该题目，请检查链接。</div>';
+        }
+    </script>
+</body>
+</html>

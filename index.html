@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小盾构的数学站</title>
+    <style>
+        :root {
+            --bg: #faf8f5;
+            --text: #2c2416;
+            --accent: #c75b39;
+            --accent-hover: #a84326;
+            --card-bg: #ffffff;
+            --border: #e8e0d5;
+            --footer-text: #9b8c7c;
+            --footer-hover: #6b5d4f;
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 4px 24px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.1);
+            --radius: 20px;
+            --radius-sm: 12px;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Noto Serif SC", "Source Han Serif SC", "STSong", "Songti SC", "SimSun", "KaiTi", "楷体", "Georgia", "Times New Roman", serif;
+            background-color: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-image:
+                radial-gradient(ellipse at 20% 20%, rgba(199, 91, 57, 0.03) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 70%, rgba(199, 91, 57, 0.04) 0%, transparent 60%),
+                radial-gradient(ellipse at 50% 50%, rgba(180, 160, 130, 0.03) 0%, transparent 70%);
+            background-attachment: fixed;
+            padding: 2rem;
+            position: relative;
+        }
+
+        /* 背景装饰 - 几何线条 */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -120px;
+            right: -120px;
+            width: 500px;
+            height: 500px;
+            border: 1px solid rgba(180, 150, 120, 0.12);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            bottom: -80px;
+            left: -100px;
+            width: 380px;
+            height: 380px;
+            border: 1px solid rgba(180, 150, 120, 0.1);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .main-container {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            width: 100%;
+            max-width: 700px;
+            gap: 2.5rem;
+        }
+
+        /* 卡片容器 */
+        .hero-card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 3.5rem 3rem 3rem;
+            box-shadow: var(--shadow-md), var(--shadow-sm);
+            text-align: center;
+            width: 100%;
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+            transition: box-shadow var(--transition), transform var(--transition);
+        }
+
+        .hero-card:hover {
+            box-shadow: var(--shadow-lg), var(--shadow-sm);
+            transform: translateY(-2px);
+        }
+
+        /* 顶部装饰线 */
+        .hero-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 0 0 4px 4px;
+            opacity: 0.7;
+        }
+
+        /* 数学符号装饰 */
+        .math-decoration {
+            position: absolute;
+            font-size: 6rem;
+            color: rgba(180, 150, 120, 0.06);
+            pointer-events: none;
+            user-select: none;
+            font-family: "Georgia", "Times New Roman", serif;
+            font-style: italic;
+            z-index: 0;
+        }
+
+        .math-decoration.top-left {
+            top: -10px;
+            left: 20px;
+        }
+
+        .math-decoration.bottom-right {
+            bottom: -20px;
+            right: 20px;
+            font-size: 5rem;
+        }
+
+        .math-decoration.mid-right {
+            top: 50%;
+            right: -10px;
+            font-size: 3.5rem;
+            transform: translateY(-50%);
+            opacity: 0.04;
+        }
+
+        /* 标题 */
+        .site-title {
+            position: relative;
+            z-index: 1;
+            font-size: clamp(2.4rem, 5vw, 3.6rem);
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            color: var(--text);
+            margin-bottom: 0.6rem;
+            line-height: 1.3;
+            text-shadow: 0 1px 1px rgba(255, 255, 255, 0.6);
+        }
+
+        .site-subtitle {
+            position: relative;
+            z-index: 1;
+            font-size: 1rem;
+            color: #9b8c7c;
+            letter-spacing: 0.15em;
+            margin-bottom: 2.5rem;
+            font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+            font-weight: 300;
+        }
+
+        /* 分隔线 */
+        .divider {
+            width: 50px;
+            height: 1px;
+            background: var(--border);
+            margin: 0 auto 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .divider::after {
+            content: '∎';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--card-bg);
+            padding: 0 10px;
+            color: #cbb9a5;
+            font-size: 0.55rem;
+            letter-spacing: 0;
+        }
+
+        /* START 按钮 */
+        .btn-start {
+            position: relative;
+            z-index: 1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            padding: 1rem 3.2rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            color: #ffffff;
+            background: var(--accent);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all var(--transition);
+            box-shadow: 0 4px 16px rgba(199, 91, 57, 0.25);
+            font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+            outline: none;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .btn-start:hover {
+            background: var(--accent-hover);
+            box-shadow: 0 8px 28px rgba(199, 91, 57, 0.35);
+            transform: translateY(-3px);
+            letter-spacing: 0.25em;
+        }
+
+        .btn-start:active {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(199, 91, 57, 0.3);
+            transition: all 0.1s ease;
+        }
+
+        .btn-start .arrow {
+            display: inline-block;
+            transition: transform var(--transition);
+            font-size: 1.2rem;
+        }
+
+        .btn-start:hover .arrow {
+            transform: translateX(4px);
+        }
+
+        /* 底部信息 */
+        .footer-info {
+            text-align: center;
+            font-size: 0.82rem;
+            color: var(--footer-text);
+            letter-spacing: 0.04em;
+            line-height: 2;
+            font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+            position: relative;
+            z-index: 1;
+            padding: 0.5rem 1rem;
+        }
+
+        .footer-info .info-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 0.4rem 1.2rem;
+        }
+
+        .footer-info .info-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            white-space: nowrap;
+            transition: color var(--transition);
+        }
+
+        .footer-info .info-item:hover {
+            color: var(--footer-hover);
+        }
+
+        /* 邮箱链接样式 */
+        .footer-info a.info-item {
+            color: inherit;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .footer-info a.info-item:hover {
+            color: var(--footer-hover);
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            text-decoration-color: rgba(199, 91, 57, 0.4);
+        }
+
+        .footer-info .info-separator {
+            color: #d5cbc0;
+            font-size: 0.6rem;
+            user-select: none;
+        }
+
+        .footer-info .info-icon {
+            font-size: 0.85rem;
+            opacity: 0.7;
+        }
+
+        /* 响应式 */
+        @media (max-width: 600px) {
+            body {
+                padding: 1rem;
+            }
+
+            .hero-card {
+                padding: 2.5rem 1.5rem 2rem;
+                border-radius: 16px;
+            }
+
+            .site-title {
+                font-size: 2rem;
+                letter-spacing: 0.06em;
+            }
+
+            .site-subtitle {
+                font-size: 0.9rem;
+                margin-bottom: 2rem;
+            }
+
+            .btn-start {
+                padding: 0.85rem 2.5rem;
+                font-size: 1rem;
+                letter-spacing: 0.15em;
+            }
+
+            .footer-info {
+                font-size: 0.75rem;
+                line-height: 1.8;
+            }
+
+            .footer-info .info-row {
+                gap: 0.2rem 0.8rem;
+            }
+
+            .math-decoration {
+                font-size: 4rem;
+            }
+            .math-decoration.bottom-right {
+                font-size: 3.5rem;
+            }
+            .math-decoration.mid-right {
+                display: none;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .hero-card {
+                padding: 2rem 1rem 1.5rem;
+            }
+            .site-title {
+                font-size: 1.7rem;
+            }
+            .btn-start {
+                padding: 0.75rem 2rem;
+                font-size: 0.95rem;
+            }
+            .footer-info .info-row {
+                flex-direction: column;
+                gap: 0.15rem;
+            }
+            .footer-info .info-separator {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-container">
+        <!-- 主卡片 -->
+        <div class="hero-card">
+            <!-- 装饰数学符号 -->
+            <span class="math-decoration top-left" aria-hidden="true">∑</span>
+            <span class="math-decoration bottom-right" aria-hidden="true">π</span>
+            <span class="math-decoration mid-right" aria-hidden="true">∞</span>
+
+            <!-- 标题 -->
+            <h1 class="site-title">小盾构的数学站</h1>
+            <p class="site-subtitle">— 探索数学之美 —</p>
+
+            <!-- 分隔线 -->
+            <div class="divider"></div>
+
+            <!-- START 按钮 -->
+         <a href="home.html" class="btn-start" title="进入数学世界">
+                START <span class="arrow">→</span>
+            </a>
+        </div>
+
+        <!-- 底部联系信息 -->
+        <div class="footer-info">
+            <div class="info-row">
+                <a href="mailto:2132653207@qq.com" class="info-item" title="发送邮件">
+                    <span class="info-icon">✉</span> 2132653207@qq.com
+                </a>
+                <span class="info-separator">|</span>
+                <span class="info-item">
+                    <span class="info-icon">📞</span> +86 18960991652
+                </span>
+                <span class="info-separator">|</span>
+                <span class="info-item">
+                    <span class="info-icon">💬</span> 微信：wxid_tu5b4crgr14h22
+                </span>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

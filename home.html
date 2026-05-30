@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小盾构的数学站 · 主页</title>
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+                ignoreHtmlClass: 'no-math'
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+    <style>
+        :root {
+            --bg: #faf8f5;
+            --text: #2c2416;
+            --accent: #c75b39;
+            --accent-hover: #a84326;
+            --card-bg: #ffffff;
+            --border: #e8e0d5;
+            --footer-text: #9b8c7c;
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+            --shadow-md: 0 4px 24px rgba(0,0,0,0.06);
+            --shadow-lg: 0 12px 40px rgba(0,0,0,0.1);
+            --radius: 18px;
+            --radius-sm: 12px;
+            --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: "Noto Serif SC", "Source Han Serif SC", "STSong", "Songti SC", "SimSun", "KaiTi", "楷体", "Georgia", serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            background-image:
+                radial-gradient(ellipse at 30% 30%, rgba(199,91,57,0.03) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 70%, rgba(199,91,57,0.03) 0%, transparent 50%);
+            background-attachment: fixed;
+        }
+
+        .top-banner {
+            width: 100%;
+            background: linear-gradient(105deg, #f3ede8 0%, #fefaf6 50%, #f5efe8 100%);
+            border-bottom: 1px solid var(--border);
+            padding: 2.5rem 1rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.03);
+        }
+        .top-banner::before {
+            content: '';
+            position: absolute;
+            top: -60px;
+            right: -40px;
+            width: 280px;
+            height: 280px;
+            border: 2px solid rgba(199,91,57,0.1);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .top-banner::after {
+            content: '';
+            position: absolute;
+            bottom: -30px;
+            left: -30px;
+            width: 180px;
+            height: 180px;
+            border: 2px solid rgba(199,91,57,0.08);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .banner-title {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            color: var(--text);
+            position: relative;
+            z-index: 1;
+        }
+        .banner-sub {
+            color: var(--footer-text);
+            font-size: 1rem;
+            margin-top: 0.5rem;
+            letter-spacing: 0.12em;
+            position: relative;
+            z-index: 1;
+            font-family: "Noto Sans SC", "PingFang SC", sans-serif;
+        }
+        .math-decor {
+            font-size: 4rem;
+            color: rgba(180,150,120,0.15);
+            position: absolute;
+            z-index: 0;
+            font-family: "Georgia", "Times New Roman", serif;
+            font-style: italic;
+            user-select: none;
+            pointer-events: none;
+        }
+        .math-decor.left { left: 8%; top: 20%; }
+        .math-decor.right { right: 8%; bottom: 10%; }
+
+        .main-grid {
+            max-width: 1400px;
+            margin: 2.5rem auto;
+            padding: 0 1.5rem;
+            display: grid;
+            grid-template-columns: 2.5fr 1.8fr 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        @media (max-width: 1000px) {
+            .main-grid { grid-template-columns: 1fr; max-width: 700px; }
+        }
+
+        .column {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 1.8rem 1.5rem;
+            box-shadow: var(--shadow-sm), var(--shadow-md);
+            border: 1px solid var(--border);
+        }
+        .column-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent);
+            display: inline-block;
+            color: var(--text);
+        }
+
+        /* 原创题卡片链接 */
+        .problem-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            margin-bottom: 1rem;
+        }
+        .problem-card {
+            background: #fefcf9;
+            border: 1px solid #f0e8dc;
+            border-radius: var(--radius-sm);
+            padding: 1rem 1.2rem;
+            transition: all var(--transition);
+            cursor: pointer;
+        }
+        .problem-link:hover .problem-card {
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+            border-color: #d8c8b2;
+            transform: translateY(-1px);
+        }
+        .problem-title {
+            font-weight: 700;
+            font-size: 1rem;
+            letter-spacing: 0.03em;
+            color: #3a2f22;
+            margin-bottom: 0.4rem;
+        }
+        .problem-excerpt {
+            font-size: 0.85rem;
+            color: #6b5d4f;
+            font-family: "Noto Sans SC", "PingFang SC", sans-serif;
+        }
+        .geo-badge {
+            display: inline-block;
+            font-size: 0.7rem;
+            background: var(--accent);
+            color: white;
+            border-radius: 20px;
+            padding: 0.15rem 0.6rem;
+            margin-left: 0.6rem;
+            vertical-align: middle;
+            letter-spacing: 0.04em;
+            font-weight: 500;
+        }
+
+        /* 比赛卡片样式 */
+        .contest-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            margin-bottom: 0.9rem;
+        }
+        .contest-card {
+            background: #faf9f7;
+            border: 1px solid #eae1d6;
+            border-radius: var(--radius-sm);
+            padding: 0.9rem 1.2rem;
+            transition: all var(--transition);
+        }
+        .contest-link:hover .contest-card {
+            box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+            background: #fffdf9;
+        }
+        .contest-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: #3a2f22;
+            margin-bottom: 0.25rem;
+        }
+        .contest-meta {
+            font-size: 0.8rem;
+            color: #8b7b6b;
+            display: flex;
+            flex-direction: column;
+            gap: 0.1rem;
+            font-family: "Noto Sans SC", sans-serif;
+        }
+
+        /* 精神状态色块 */
+        .mood-box {
+            background: linear-gradient(145deg, #f5e3c8, #eddcc3);
+            border-radius: var(--radius);
+            padding: 2rem 1rem;
+            text-align: center;
+            transition: all var(--transition);
+            cursor: pointer;
+            border: 1px solid #e2cfb0;
+            color: #5a4a36;
+            font-weight: 600;
+            font-size: 1.1rem;
+            letter-spacing: 0.06em;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 160px;
+            text-decoration: none;
+        }
+        .mood-box:hover {
+            background: linear-gradient(145deg, #eed9b8, #e3ccaa);
+            transform: scale(1.02);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        }
+        .mood-emoji { font-size: 2.8rem; margin-bottom: 0.5rem; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1)); }
+
+        .footer-note {
+            text-align: center;
+            color: var(--footer-text);
+            font-size: 0.75rem;
+            padding: 2rem 1rem 1rem;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-banner">
+        <span class="math-decor left">∑</span>
+        <span class="math-decor right">π</span>
+        <div class="banner-title">小盾构的数学站</div>
+        <div class="banner-sub">—— 原创 · 比赛 · 思考 ——</div>
+    </div>
+
+    <div class="main-grid">
+        <!-- 左栏：原创题目 -->
+        <div class="column" id="original-column">
+            <h2 class="column-title">📐 我的原创</h2>
+            <div id="original-list"></div>
+        </div>
+
+        <!-- 中栏：近期比赛（已更新） -->
+        <div class="column">
+            <h2 class="column-title">🏆 近期比赛</h2>
+            <a href="competitions.html" class="contest-link" title="查看比赛详情">
+                <div class="contest-card">
+                    <div class="contest-name">福建省高中数学联赛预赛</div>
+                    <div class="contest-meta">
+                        <span>📅 2026.06.28</span>
+                        <span>📍 地点待定</span>
+                    </div>
+                </div>
+            </a>
+           <a href="competitions.html" class="contest-link" title="查看比赛详情">
+                <div class="contest-card">
+                    <div class="contest-name">中国东南地区数学奥林匹克</div>
+                    <div class="contest-meta">
+                        <span>📅 2026.07.28</span>
+                        <span>📍 福建泉州</span>
+                    </div>
+                </div>
+            </a>
+            <a href="competitions.html" class="contest-link" title="查看比赛详情">
+                <div class="contest-card">
+                    <div class="contest-name">易湃杯数学竞赛</div>
+                    <div class="contest-meta">
+                        <span>📅 2026.08</span>
+                        <span>📍 浙江杭州</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- 右栏：站主精神状态 -->
+        <div class="column">
+            <h2 class="column-title">🧠 站主精神</h2>
+            <a href="emotion.html" class="mood-box" title="点击查看详细精神状态">
+                <span class="mood-emoji">🌗</span>
+                <span>今日状态：<br>正在加载...</span>
+            </a>
+            <p style="font-size:0.75rem; color: var(--footer-text); text-align:center; margin-top:0.8rem;">（点击色块跳转）</p>
+        </div>
+    </div>
+
+    <div class="footer-note">
+        <span>📧 2132653207@qq.com</span> ｜ <span>📞 +86 18960991652</span> ｜ <span>💬 wxid_tu5b4crgr14h22</span>
+    </div>
+
+    <script>
+        // 原创题数据（保持不变）
+        const problems = [
+            { title: "鸿煦杯的问题.", excerpt: "设$p$是质数，整数$n>1$.求证：对任意整数$N \\ge \\frac{n+2}{2}$...", geo: false },
+            { title: "答案也优雅的代数.", excerpt: "设$n$为正整数，非负实数$0 = a_0 \\le a_1 \\le \\dots \\le a_n = 3$...", geo: false },
+            { title: "3.（题面优雅的数论）", excerpt: "称一个正整数$k$为优雅的，当且仅当可以将它的十进制表示分成两段...", geo: false },
+            { title: "神秘的三角不等式.", excerpt: "求最大的正实数$C$，使得对任意$\\alpha_1,\\alpha_2,\\dots$...", geo: false },
+            { title: "5.（漂亮的代数题）", excerpt: "给定正整数$n$.设$a_1,a_2,\\dots,a_n$是不全相等的实数...", geo: false },
+            { title: "6.（字母都优雅的几何！）", excerpt: "如图，在$\\triangle ABC$中，$M$为$BC$的中点...", geo: true, img: "image001.png" },
+            { title: "最优雅的组合.", excerpt: "小猫和小狐在2024年的日历中玩一个游戏...", geo: false },
+            { title: "8.（即兴编的几何）", excerpt: "如图，$\\triangle ABC$的外心为$O$，$\\omega$为$\\triangle OBC$的外接圆...", geo: true, img: "image002.png" },
+            { title: "神秘的结论题", excerpt: "有$\\frac{1}{2}n(n+1)$个正整数$x_{i,j}$...", geo: false },
+            { title: "不知道哪里改编来的题", excerpt: "设整数$m,n \\ge 2$.设$2m$个正整数...", geo: false },
+            { title: "闹出过风波的题", excerpt: "如图，在圆内接四边形$ABCD$中，$AB,CD$交于点$E$...", geo: true, img: "image003.png" },
+            { title: "早期原创代数.", excerpt: "设$n$是正整数，$a_1,a_2,\\dots,a_n$是正实数...", geo: false },
+            { title: "马爽的游戏.", excerpt: "小马和小爽玩如下游戏：小马剪下一块面积为$S$的纸片...", geo: false },
+            { title: "也许没有答案的代数组合.", excerpt: "设$a_1,a_2,\\dots,a_n$是正整数，集合$S=...$", geo: false },
+            { title: "又一个也许没有答案的代数组合.", excerpt: "设$n$为正整数，$S$是一些三元有序数组...", geo: false },
+            { title: "改编的数论.", excerpt: "证明：存在严格单调递增的正整数序列$\\{a_n\\}$...", geo: false },
+            { title: "猫头鹰的蛋.", excerpt: "给定素数$p$，集合$S=\\{0,1,...,p-1\\}$...", geo: false },
+            { title: "疯狂的Sigma.", excerpt: "设$p$为奇素数，$a_1 < a_2 < \\cdots < a_n$为整数...", geo: false },
+            { title: "第一道原创.", excerpt: "在$\\triangle ABC$中，内切圆$\\odot I$切边$BC,CA,AB$于$D,E,F$...", geo: true, img: "image004.png" },
+            { title: "ZLM的生日题.", excerpt: "在$\\triangle ABC$中，$L,M,N$为边中点，射线$AL,BM,CN$交外接圆...", geo: true, img: "image005.png" },
+            { title: "被遗忘了的代数.", excerpt: "设$x_1,x_2,\\cdots,x_{2025}$是正实数...", geo: false },
+            { title: "ZLW的组合.", excerpt: "会议室有$m$行$n$列，坐着一个巨佬...", geo: false },
+            { title: "神秘改编.", excerpt: "证明：存在若干个互不相同的素数之和为$72827$。", geo: false },
+            { title: "简单的代数.", excerpt: "$2025$个实数$x_1,...,x_{2025}$满足和为$2025$...", geo: false },
+            { title: "又一道神秘的改编.", excerpt: "是否存在$n$个非负实数$a_1,...,a_n$满足...", geo: false },
+            { title: "Pell方程相关.", excerpt: "设正整数$d$不是完全平方数，方程$x^2 - dy^2 = 1$...", geo: false },
+            { title: "高铁网络规划.", excerpt: "直线上$n$个高铁站，若干条线路...", geo: false },
+            { title: "神秘的三元！", excerpt: "设$x,y,z$为非负实数，且$x+y+z=3$...", geo: false },
+            { title: "猜猜怎么做", excerpt: "求最小的实常数$C$，使对任意非负实数$a_1,...,a_{728}$...", geo: false },
+            { title: "一个猜想", excerpt: "平面格点集$P$，求最大的正整数$n$...", geo: false },
+            { title: "西部改编.", excerpt: "正整数$n$及非负整数$a_i$，满足$\\sum x_i y_i = 2025$...", geo: false },
+            { title: "数字和与进位制的问题.", excerpt: "对十进制数字和函数$S_i(n)$...", geo: false },
+            { title: "拙劣的模仿.", excerpt: "对有限正整数集合$S$定义陶集$\\tau(S)$...", geo: false },
+            { title: "爆难构造题.", excerpt: "证明存在无穷多个正整数$n$...", geo: false },
+            { title: "简单的平几.", excerpt: "如图，在$\\triangle ABC$中，$\\angle BAC > 90^\\circ$...", geo: true, img: "image006.png" },
+            { title: "CXM！.", excerpt: "称整系数多项式$f(x)$为合格的...", geo: false },
+            { title: "置换相关.", excerpt: "设$n \\ge 2$为正整数，所有置换构成集合$S$...", geo: false },
+            { title: "单位根的应用.", excerpt: "求正整数组$(x_1,\\dots,x_{2026})$的个数...", geo: false }
+        ];
+
+        const container = document.getElementById('original-list');
+        problems.forEach((p, index) => {
+            const fileIndex = String(index + 1).padStart(3, '0');
+            const detailPage = `problem.html?id=${fileIndex}`;
+
+            const card = document.createElement('div');
+            card.className = 'problem-card';
+            let titleHtml = p.title;
+            if (p.geo) titleHtml += ` <span class="geo-badge">📎 ${p.img}</span>`;
+            card.innerHTML = `<div class="problem-title">${titleHtml}</div><div class="problem-excerpt">${p.excerpt}</div>`;
+
+            const link = document.createElement('a');
+            link.href = detailPage;
+            link.className = 'problem-link';
+            link.title = `阅读题目：${p.title}`;
+            link.appendChild(card);
+            container.appendChild(link);
+        });
+    </script>
+</body>
+</html>
