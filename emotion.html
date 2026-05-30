@@ -3,8 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>站主精神状态</title>
+    <title>站主精神状态 · 小盾构的数学站</title>
     <style>
+        :root {
+            --bg: #faf8f5;
+            --text: #2c2416;
+            --accent: #c75b39;
+            --accent-hover: #a84326;
+            --card-bg: #ffffff;
+            --border: #e8e0d5;
+            --footer-text: #9b8c7c;
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+            --shadow-md: 0 4px 24px rgba(0,0,0,0.06);
+            --shadow-lg: 0 12px 40px rgba(0,0,0,0.1);
+            --radius: 18px;
+            --radius-sm: 12px;
+            --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -12,63 +28,78 @@
         }
 
         body {
+            font-family: "Noto Serif SC", "Source Han Serif SC", "STSong", "Songti SC", "SimSun", "KaiTi", "楷体", "Georgia", serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            background-image:
+                radial-gradient(ellipse at 30% 30%, rgba(199,91,57,0.03) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 70%, rgba(199,91,57,0.03) 0%, transparent 50%);
+            background-attachment: fixed;
             min-height: 100vh;
-            background: linear-gradient(135deg, #1a2a3a 0%, #0f1a24 100%);
             display: flex;
             justify-content: center;
             align-items: center;
-            font-family: system-ui, 'Segoe UI', 'Helvetica Neue', 'Noto Sans', sans-serif;
-            padding: 1.5rem;
+            padding: 2rem 1.5rem;
         }
 
-        /* 主卡片 */
-        .status-card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(12px);
-            border-radius: 3rem;
-            box-shadow: 0 25px 40px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255,255,255,0.1);
-            text-align: center;
-            padding: 2rem 2rem 2.5rem;
-            width: 100%;
+        .container {
             max-width: 500px;
-            border: 1px solid rgba(255,255,255,0.2);
+            width: 100%;
+            margin: 0 auto;                    /* 水平居中 */
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 2.5rem 2rem;
+            box-shadow: var(--shadow-md), var(--shadow-sm);
+            border: 1px solid var(--border);
+            text-align: center;
+            position: relative;
         }
 
-        /* 标题区 - 仅保留站主精神状态 */
+        .back-link {
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            font-family: "Noto Sans SC", "PingFang SC", sans-serif;
+            font-size: 0.95rem;
+        }
+        .back-link:hover { text-decoration: underline; }
+
         .title {
             font-size: 2rem;
             font-weight: 700;
-            letter-spacing: 2px;
-            background: linear-gradient(120deg, #f9e0a0, #ffcf7a);
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
-            margin-bottom: 2rem;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            letter-spacing: 0.06em;
+            color: var(--text);
+            margin: 0 auto 2rem auto;          /* 上下间距，左右自动居中 */
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent);
+            display: table;                    /* 使元素宽度由内容撑开，配合 margin auto 居中 */
         }
 
-        /* 大表情容器 */
+        /* 表情容器 */
         .emoji-arena {
-            background: rgba(20, 30, 40, 0.5);
+            background: #fefcf9;
             border-radius: 4rem;
-            width: 220px;
-            height: 220px;
+            width: 200px;
+            height: 200px;
             margin: 0 auto 1.5rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            backdrop-filter: blur(4px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.2);
+            box-shadow: var(--shadow-sm), 0 4px 16px rgba(0,0,0,0.05);
+            border: 1px solid var(--border);
+            transition: box-shadow 0.2s ease;
         }
 
         .emoji {
-            font-size: 8rem;
+            font-size: 7rem;
             line-height: 1;
-            filter: drop-shadow(0 8px 12px rgba(0,0,0,0.3));
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
             transition: transform 0.3s cubic-bezier(0.34, 1.2, 0.64, 1);
         }
 
-        /* 轻微缩放动画 */
         @keyframes gentlePop {
             0% { transform: scale(1); }
             50% { transform: scale(1.08); }
@@ -79,34 +110,42 @@
             animation: gentlePop 0.35s ease-out;
         }
 
-        /* 情绪文字标签 - 保留显示当前表情名称 */
         .emotion-label {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             font-weight: 600;
-            background: rgba(0,0,0,0.5);
             display: inline-block;
-            padding: 0.4rem 1.6rem;
+            padding: 0.4rem 1.8rem;
             border-radius: 60px;
-            color: #ffefcf;
-            backdrop-filter: blur(4px);
+            background: var(--bg);
+            color: var(--text);
+            border: 1px solid var(--border);
             letter-spacing: 2px;
-            border: 1px solid rgba(255,215,150,0.5);
+            backdrop-filter: blur(4px);
+            margin-top: 0.5rem;
         }
 
-        /* 响应式 */
+        .footer-note {
+            text-align: center;
+            color: var(--footer-text);
+            font-size: 0.75rem;
+            padding: 2rem 0 0;
+            opacity: 0.8;
+            margin-top: 2rem;
+        }
+
         @media (max-width: 500px) {
-            .status-card {
-                padding: 1.5rem;
+            .container {
+                padding: 2rem 1.5rem;
             }
             .emoji-arena {
-                width: 170px;
-                height: 170px;
+                width: 160px;
+                height: 160px;
             }
             .emoji {
-                font-size: 6rem;
+                font-size: 5.5rem;
             }
             .emotion-label {
-                font-size: 1.4rem;
+                font-size: 1.3rem;
             }
             .title {
                 font-size: 1.6rem;
@@ -115,81 +154,79 @@
     </style>
 </head>
 <body>
-<div class="status-card">
-    <div class="title">🤯 站主精神状态</div>
+    <div class="container">
+        <a href="home.html" class="back-link">← 返回主页</a>
+        <div class="title">🤯 站主精神状态</div>
 
-    <!-- 动态表情区域 -->
-    <div class="emoji-arena">
-        <div class="emoji" id="dynamicEmoji">😠</div>
+        <!-- 动态表情区域 -->
+        <div class="emoji-arena">
+            <div class="emoji" id="dynamicEmoji">😠</div>
+        </div>
+        <div class="emotion-label" id="emotionText">红温</div>
+
+        <div class="footer-note">
+            <span>📧 2132653207@qq.com</span> ｜ <span>📞 +86 18960991652</span> ｜ <span>💬 wxid_tu5b4crgr14h22</span>
+        </div>
     </div>
-    <div class="emotion-label" id="emotionText">发怒</div>
-</div>
 
-<script>
-    // 三个表情数据：符号 + 中文名称
-    const emotions = [
-        { symbol: "😠", name: "红温" },   // 索引 0
-        { symbol: "😊", name: "嘻嘻" },   // 索引 1
-        { symbol: "😟", name: "好吧" }    // 索引 2
-    ];
+    <script>
+        // 核心功能完全保留，仅调整背景光晕颜色
+        const emotions = [
+            { symbol: "😠", name: "红温" },
+            { symbol: "😊", name: "嘻嘻" },
+            { symbol: "😟", name: "好吧" }
+        ];
 
-    let currentIdx = 0;          // 当前显示索引
-    const emojiEl = document.getElementById('dynamicEmoji');
-    const textEl = document.getElementById('emotionText');
+        let currentIdx = 0;
+        const emojiEl = document.getElementById('dynamicEmoji');
+        const textEl = document.getElementById('emotionText');
 
-    // 更新表情显示并附带柔和的动画
-    function updateEmotion(index) {
-        const safeIndex = index % emotions.length;
-        currentIdx = safeIndex;
-        const target = emotions[safeIndex];
-        
-        // 内容更新
-        emojiEl.textContent = target.symbol;
-        textEl.textContent = target.name;
-        
-        // 添加动画类（缩放一下，增加变换的生动感）
-        emojiEl.classList.remove('emoji-animate');
-        // 强制重绘小技巧
-        void emojiEl.offsetWidth;
-        emojiEl.classList.add('emoji-animate');
-        
-        // 轻微背景光晕（可选）
-        const arena = document.querySelector('.emoji-arena');
-        arena.style.transition = 'box-shadow 0.2s';
-        arena.style.boxShadow = '0 0 12px rgba(255,200,100,0.5)';
-        setTimeout(() => {
-            arena.style.boxShadow = '0 10px 25px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.2)';
-        }, 200);
-    }
+        function updateEmotion(index) {
+            const safeIndex = index % emotions.length;
+            currentIdx = safeIndex;
+            const target = emotions[safeIndex];
 
-    // 自动轮播: 按照顺序 0→1→2→0→1→2 ... 实现来回循环变换
-    let intervalId = null;
-    function startAutoSwitch() {
-        if (intervalId) clearInterval(intervalId);
-        intervalId = setInterval(() => {
-            let next = currentIdx + 1;
-            if (next >= emotions.length) next = 0;
-            updateEmotion(next);
-        }, 2500);  // 2.5 秒切换一次
-    }
+            emojiEl.textContent = target.symbol;
+            textEl.textContent = target.name;
 
-    // 初始化显示（发怒）
-    updateEmotion(0);
-    startAutoSwitch();
+            emojiEl.classList.remove('emoji-animate');
+            void emojiEl.offsetWidth;
+            emojiEl.classList.add('emoji-animate');
 
-    // 页面可见性变化时优化定时器
-    document.addEventListener('visibilitychange', () => {
-        if (document.hidden) {
-            if (intervalId) clearInterval(intervalId);
-            intervalId = null;
-        } else {
-            if (!intervalId) startAutoSwitch();
+            // 光晕改为暖色
+            const arena = document.querySelector('.emoji-arena');
+            arena.style.transition = 'box-shadow 0.2s';
+            arena.style.boxShadow = '0 0 16px rgba(199,91,57,0.2)';
+            setTimeout(() => {
+                arena.style.boxShadow = 'var(--shadow-sm), 0 4px 16px rgba(0,0,0,0.05)';
+            }, 200);
         }
-    });
 
-    window.addEventListener('beforeunload', () => {
-        if (intervalId) clearInterval(intervalId);
-    });
-</script>
+        let intervalId = null;
+        function startAutoSwitch() {
+            if (intervalId) clearInterval(intervalId);
+            intervalId = setInterval(() => {
+                let next = currentIdx + 1;
+                if (next >= emotions.length) next = 0;
+                updateEmotion(next);
+            }, 2500);
+        }
+
+        updateEmotion(0);
+        startAutoSwitch();
+
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                if (intervalId) clearInterval(intervalId);
+                intervalId = null;
+            } else {
+                if (!intervalId) startAutoSwitch();
+            }
+        });
+
+        window.addEventListener('beforeunload', () => {
+            if (intervalId) clearInterval(intervalId);
+        });
+    </script>
 </body>
 </html>
