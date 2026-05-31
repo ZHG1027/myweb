@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>小盾构的数学站</title>
     <style>
+        /* 所有样式与之前相同，仅修改动画时长 */
         :root {
             --bg: #faf8f5;
             --text: #2c2416;
@@ -13,7 +14,6 @@
             --card-bg: #ffffff;
             --border: #e8e0d5;
             --footer-text: #9b8c7c;
-            --footer-hover: #6b5d4f;
             --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
             --shadow-md: 0 4px 24px rgba(0, 0, 0, 0.06);
             --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.1);
@@ -22,11 +22,7 @@
             --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: "Noto Serif SC", "Source Han Serif SC", "STSong", "Songti SC", "SimSun", "KaiTi", "楷体", "Georgia", "Times New Roman", serif;
@@ -44,9 +40,9 @@
             background-attachment: fixed;
             padding: 2rem;
             position: relative;
+            overflow-x: hidden;
         }
 
-        /* 背景装饰 - 几何线条 */
         body::before {
             content: '';
             position: fixed;
@@ -86,7 +82,6 @@
             gap: 2.5rem;
         }
 
-        /* 卡片容器 */
         .hero-card {
             background: var(--card-bg);
             border-radius: var(--radius);
@@ -97,15 +92,14 @@
             border: 1px solid var(--border);
             position: relative;
             overflow: hidden;
-            transition: box-shadow var(--transition), transform var(--transition);
+            animation: cardFloatIn 1.5s cubic-bezier(0.23, 1, 0.32, 1) both; /* 放慢 */
         }
 
-        .hero-card:hover {
-            box-shadow: var(--shadow-lg), var(--shadow-sm);
-            transform: translateY(-2px);
+        @keyframes cardFloatIn {
+            0% { opacity: 0; transform: translateY(60px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
 
-        /* 顶部装饰线 */
         .hero-card::before {
             content: '';
             position: absolute;
@@ -119,7 +113,6 @@
             opacity: 0.7;
         }
 
-        /* 数学符号装饰 */
         .math-decoration {
             position: absolute;
             font-size: 6rem;
@@ -131,26 +124,10 @@
             z-index: 0;
         }
 
-        .math-decoration.top-left {
-            top: -10px;
-            left: 20px;
-        }
+        .math-decoration.top-left { top: -10px; left: 20px; }
+        .math-decoration.bottom-right { bottom: -20px; right: 20px; font-size: 5rem; }
+        .math-decoration.mid-right { top: 50%; right: -10px; font-size: 3.5rem; transform: translateY(-50%); opacity: 0.04; }
 
-        .math-decoration.bottom-right {
-            bottom: -20px;
-            right: 20px;
-            font-size: 5rem;
-        }
-
-        .math-decoration.mid-right {
-            top: 50%;
-            right: -10px;
-            font-size: 3.5rem;
-            transform: translateY(-50%);
-            opacity: 0.04;
-        }
-
-        /* 标题 */
         .site-title {
             position: relative;
             z-index: 1;
@@ -174,7 +151,6 @@
             font-weight: 300;
         }
 
-        /* 分隔线 */
         .divider {
             width: 50px;
             height: 1px;
@@ -197,10 +173,15 @@
             letter-spacing: 0;
         }
 
-        /* START 按钮 */
-        .btn-start {
+        .btn-wrapper {
+            display: inline-block;
+            overflow: hidden;
+            border-radius: 50px;
             position: relative;
             z-index: 1;
+        }
+
+        .btn-start {
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -221,6 +202,13 @@
             outline: none;
             user-select: none;
             -webkit-tap-highlight-color: transparent;
+            transform: translateX(-120%);
+            animation: btnSlideIn 1.2s 1.2s cubic-bezier(0.23, 1, 0.32, 1) forwards; /* 放慢 + 延迟增加 */
+        }
+
+        @keyframes btnSlideIn {
+            0% { transform: translateX(-120%); opacity: 0; }
+            100% { transform: translateX(0); opacity: 1; }
         }
 
         .btn-start:hover {
@@ -246,7 +234,6 @@
             transform: translateX(4px);
         }
 
-        /* 底部信息 */
         .footer-info {
             text-align: center;
             font-size: 0.82rem;
@@ -257,6 +244,12 @@
             position: relative;
             z-index: 1;
             padding: 0.5rem 1rem;
+            opacity: 0;
+            animation: fadeIn 1.2s 2s ease forwards; /* 放慢 + 延迟增加 */
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
         }
 
         .footer-info .info-row {
@@ -275,11 +268,10 @@
             transition: color var(--transition);
         }
 
-        .footer-info .info-item:hover {
-            color: var(--footer-hover);
-        }
+        .footer-info .info-item:hover { color: #6b5d4f; }
+        .footer-info .info-separator { color: #d5cbc0; font-size: 0.6rem; user-select: none; }
+        .footer-info .info-icon { font-size: 0.85rem; opacity: 0.7; }
 
-        /* 邮箱链接样式 */
         .footer-info a.info-item {
             color: inherit;
             text-decoration: none;
@@ -287,115 +279,49 @@
         }
 
         .footer-info a.info-item:hover {
-            color: var(--footer-hover);
+            color: #6b5d4f;
             text-decoration: underline;
             text-underline-offset: 3px;
             text-decoration-color: rgba(199, 91, 57, 0.4);
         }
 
-        .footer-info .info-separator {
-            color: #d5cbc0;
-            font-size: 0.6rem;
-            user-select: none;
-        }
-
-        .footer-info .info-icon {
-            font-size: 0.85rem;
-            opacity: 0.7;
-        }
-
-        /* 响应式 */
         @media (max-width: 600px) {
-            body {
-                padding: 1rem;
-            }
-
-            .hero-card {
-                padding: 2.5rem 1.5rem 2rem;
-                border-radius: 16px;
-            }
-
-            .site-title {
-                font-size: 2rem;
-                letter-spacing: 0.06em;
-            }
-
-            .site-subtitle {
-                font-size: 0.9rem;
-                margin-bottom: 2rem;
-            }
-
-            .btn-start {
-                padding: 0.85rem 2.5rem;
-                font-size: 1rem;
-                letter-spacing: 0.15em;
-            }
-
-            .footer-info {
-                font-size: 0.75rem;
-                line-height: 1.8;
-            }
-
-            .footer-info .info-row {
-                gap: 0.2rem 0.8rem;
-            }
-
-            .math-decoration {
-                font-size: 4rem;
-            }
-            .math-decoration.bottom-right {
-                font-size: 3.5rem;
-            }
-            .math-decoration.mid-right {
-                display: none;
-            }
+            body { padding: 1rem; }
+            .hero-card { padding: 2.5rem 1.5rem 2rem; border-radius: 16px; }
+            .site-title { font-size: 2rem; letter-spacing: 0.06em; }
+            .site-subtitle { font-size: 0.9rem; margin-bottom: 2rem; }
+            .btn-start { padding: 0.85rem 2.5rem; font-size: 1rem; letter-spacing: 0.15em; }
+            .footer-info { font-size: 0.75rem; line-height: 1.8; }
+            .footer-info .info-row { gap: 0.2rem 0.8rem; }
+            .math-decoration { font-size: 4rem; }
+            .math-decoration.bottom-right { font-size: 3.5rem; }
+            .math-decoration.mid-right { display: none; }
         }
 
         @media (max-width: 380px) {
-            .hero-card {
-                padding: 2rem 1rem 1.5rem;
-            }
-            .site-title {
-                font-size: 1.7rem;
-            }
-            .btn-start {
-                padding: 0.75rem 2rem;
-                font-size: 0.95rem;
-            }
-            .footer-info .info-row {
-                flex-direction: column;
-                gap: 0.15rem;
-            }
-            .footer-info .info-separator {
-                display: none;
-            }
+            .hero-card { padding: 2rem 1rem 1.5rem; }
+            .site-title { font-size: 1.7rem; }
+            .btn-start { padding: 0.75rem 2rem; font-size: 0.95rem; }
+            .footer-info .info-row { flex-direction: column; gap: 0.15rem; }
+            .footer-info .info-separator { display: none; }
         }
     </style>
 </head>
 <body>
-
     <div class="main-container">
-        <!-- 主卡片 -->
         <div class="hero-card">
-            <!-- 装饰数学符号 -->
             <span class="math-decoration top-left" aria-hidden="true">∑</span>
             <span class="math-decoration bottom-right" aria-hidden="true">π</span>
             <span class="math-decoration mid-right" aria-hidden="true">∞</span>
-
-            <!-- 标题 -->
             <h1 class="site-title">小盾构的数学站</h1>
-            <p class="site-subtitle">— Supported by Github —</p>
-
-            <!-- 分隔线 -->
+            <p class="site-subtitle">— 探索数学之美 —</p>
             <div class="divider"></div>
-
-            <!-- START 按钮 -->
-         <a href="home.html" class="btn-start" title="进入数学世界">
-                START <span class="arrow">→</span>
-            </a>
+            <div class="btn-wrapper">
+                <a href="home.html" class="btn-start" title="进入数学世界">
+                    START <span class="arrow">→</span>
+                </a>
+            </div>
         </div>
-
-        <!-- 底部联系信息 -->
         <div class="footer-info">
             <div class="info-row">
                 <a href="mailto:2132653207@qq.com" class="info-item" title="发送邮件">
@@ -412,6 +338,5 @@
             </div>
         </div>
     </div>
-
 </body>
 </html>
