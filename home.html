@@ -110,6 +110,65 @@
         .math-decor.left { left: 8%; top: 20%; }
         .math-decor.right { right: 8%; bottom: 10%; }
 
+        /* 新闻横幅样式 */
+        .news-banner {
+            max-width: 1400px;
+            margin: 2rem auto 1rem;
+            padding: 0 1.5rem;
+            width: 100%;
+        }
+        .news-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        .news-card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 1.2rem 1.8rem;
+            box-shadow: var(--shadow-sm), var(--shadow-md);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: all var(--transition);
+        }
+        .news-link:hover .news-card {
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+            transform: translateY(-1px);
+        }
+        .news-tag {
+            background: var(--accent);
+            color: #fff;
+            font-weight: 600;
+            font-size: 0.8rem;
+            padding: 0.25rem 0.8rem;
+            border-radius: 20px;
+            letter-spacing: 0.05em;
+            white-space: nowrap;
+            font-family: "Noto Sans SC", "PingFang SC", sans-serif;
+        }
+        .news-preview {
+            font-size: 0.95rem;
+            color: var(--text);
+            line-height: 1.4;
+            flex: 1;
+        }
+        .news-preview .news-title {
+            font-weight: 700;
+            margin-right: 0.5rem;
+        }
+        .news-preview .news-excerpt {
+            color: #6b5d4f;
+        }
+        @media (max-width: 700px) {
+            .news-card {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+        }
+
         .main-grid {
             max-width: 1400px;
             margin: 2.5rem auto;
@@ -265,6 +324,19 @@
         <div class="banner-sub">—— 原创 · 比赛 · 思考 ——</div>
     </div>
 
+    <!-- 近期新闻全宽横幅 -->
+    <div class="news-banner">
+        <a href="news.html" class="news-link" title="查看新闻详情">
+            <div class="news-card">
+                <span class="news-tag">📰 突发</span>
+                <div class="news-preview">
+                    <span class="news-title">突发 2026中国东南地区数学奥林匹克地点变更</span>
+                    <span class="news-excerpt">—— 活动地点已经改为福建省福清市创业大道1号福清京师学校</span>
+                </div>
+            </div>
+        </a>
+    </div>
+
     <div class="main-grid">
         <!-- 左栏：原创题目 -->
         <div class="column" id="original-column">
@@ -272,7 +344,7 @@
             <div id="original-list"></div>
         </div>
 
-        <!-- 中栏：近期比赛（已更新） -->
+        <!-- 中栏：近期比赛 -->
         <div class="column">
             <h2 class="column-title">🏆 近期比赛</h2>
             <a href="competitions.html" class="contest-link" title="查看比赛详情">
@@ -280,7 +352,7 @@
                     <div class="contest-name">福建省高中数学联赛预赛</div>
                     <div class="contest-meta">
                         <span>📅 2026.06.28</span>
-                        <span>📍 地点待定</span>
+                        <span>📍 地点未知</span>
                     </div>
                 </div>
             </a>
@@ -289,7 +361,7 @@
                     <div class="contest-name">中国东南地区数学奥林匹克</div>
                     <div class="contest-meta">
                         <span>📅 2026.07.28</span>
-                        <span>📍 福建泉州</span>
+                        <span>📍 福建·福清</span>
                     </div>
                 </div>
             </a>
@@ -298,7 +370,7 @@
                     <div class="contest-name">易湃杯数学竞赛</div>
                     <div class="contest-meta">
                         <span>📅 2026.08</span>
-                        <span>📍 浙江杭州</span>
+                        <span>📍 浙江·杭州</span>
                     </div>
                 </div>
             </a>
@@ -320,12 +392,10 @@
     </div>
 
     <script>
-        // 每个题目都带有固定的 id，用于生成链接，方便以后插入新题
+        // 原创题数据（id 与 problem.html 保持一致，顺序即为列表顺序）
         const problems = [
-            // 置顶新题
             { id: "039", title: "易湃改编的几何", excerpt: "如图, 在 $\\triangle ABC$ 中, $M$ 在 $BC$ 上且满足$MA=MC$...", geo: true, img: "image007.png" },
-            // 原有题目（id 保持与 problem.html 一致）
- { id: "040", title: "田忌赛马", excerpt: "（受爱尖子协议保护，该题目暂不可见，至2027.05.23放开浏览）", geo: false },
+            { id: "040", title: "田忌赛马", excerpt: "（受爱尖子协议保护，该题目暂不可见，至2027.05.23放开浏览）", geo: false },
             { id: "041", title: "阶乘与整除", excerpt: "（受学而思协议保护，该题目暂不可见）", geo: false },
             { id: "042", title: "猿来的几何", excerpt: "（受学而思协议保护，该题目暂不可见）", geo: false },
             { id: "001", title: "鸿煦杯的问题.", excerpt: "设$p$是质数，整数$n>1$.求证：对任意整数$N \\ge \\frac{n+2}{2}$...", geo: false },
@@ -366,13 +436,10 @@
             { id: "036", title: "CXM！.", excerpt: "称整系数多项式$f(x)$为合格的...", geo: false },
             { id: "037", title: "置换相关.", excerpt: "设$n \\ge 2$为正整数，所有置换构成集合$S$...", geo: false },
             { id: "038", title: "单位根的应用.", excerpt: "求正整数组$(x_1,\\dots,x_{2026})$的个数...", geo: false }
-         
-           
         ];
 
         const container = document.getElementById('original-list');
         problems.forEach((p) => {
-            // 使用 p.id 生成链接，不再依赖索引
             const detailPage = `problem.html?id=${p.id}`;
 
             const card = document.createElement('div');
