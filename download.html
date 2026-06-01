@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>资料下载 · 小盾构的数学站</title>
+    <style>
+        :root {
+            --bg: #faf8f5;
+            --text: #2c2416;
+            --accent: #c75b39;
+            --border: #e8e0d5;
+            --footer-text: #9b8c7c;
+            --shadow-md: 0 4px 24px rgba(0,0,0,0.06);
+            --radius: 18px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: "Noto Serif SC", "Source Han Serif SC", "STSong", "Songti SC", "SimSun", "KaiTi", "楷体", "Georgia", serif;
+            background-color: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image:
+                radial-gradient(ellipse at 30% 30%, rgba(199,91,57,0.03) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 70%, rgba(199,91,57,0.03) 0%, transparent 50%);
+            background-attachment: fixed;
+            padding: 2rem 1.5rem;
+        }
+
+        .container {
+            position: relative;
+            max-width: 700px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: var(--radius);
+            padding: 2.5rem 2rem;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border);
+            text-align: center;
+            overflow: hidden;           /* 防止子元素溢出卡片 */
+        }
+
+        /* 返回链接：绝对定位，不占用文档流 */
+        .back-link {
+            position: absolute;
+            top: 1.5rem;
+            left: 1.8rem;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            font-family: "Noto Sans SC", "PingFang SC", sans-serif;
+            font-size: 0.95rem;
+            z-index: 2;
+        }
+        .back-link:hover { text-decoration: underline; }
+
+        /* 重叠文字容器 */
+        .overlap-wrapper {
+            position: relative;
+            display: inline-block;
+            max-width: 100%;
+            margin-top: 1.5rem;
+        }
+
+        /* 底层空心字：微软雅黑细边，降低透明度 */
+        .outline-text {
+            font-family: "Microsoft YaHei", "微软雅黑", "Noto Sans SC", sans-serif;
+            font-size: clamp(3rem, 8vw, 5rem);   /* 适当缩小上限，防止溢出 */
+            font-weight: 900;
+            letter-spacing: 0.08em;
+            color: transparent;
+            -webkit-text-stroke: 1px var(--accent);
+            text-stroke: 1px var(--accent);
+            line-height: 1;
+            user-select: none;
+            opacity: 0.35;
+            white-space: nowrap;
+        }
+
+        /* 顶层实心汉字：无背景，直接叠在字母上 */
+        .solid-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            color: var(--text);
+            white-space: nowrap;
+            /* 无背景、无遮罩 */
+            background: none;
+            padding: 0;
+            border-radius: 0;
+            line-height: 1.2;
+            text-shadow: 0 0 8px rgba(255,255,255,0.6); /* 轻微光晕增强可读性 */
+        }
+
+        /* 底部提示 */
+        .hint {
+            color: var(--footer-text);
+            font-size: 0.9rem;
+            font-family: "Noto Sans SC", "PingFang SC", sans-serif;
+            margin-top: 2.5rem;
+            letter-spacing: 0.04em;
+        }
+
+        .footer-note {
+            text-align: center;
+            color: var(--footer-text);
+            font-size: 0.75rem;
+            padding: 2rem 0 0;
+            margin-top: 2rem;
+            border-top: 1px dashed var(--border);
+            opacity: 0.8;
+        }
+
+        @media (max-width: 500px) {
+            .container { padding: 2rem 1.2rem; }
+            .back-link { top: 1rem; left: 1rem; }
+            .outline-text { font-size: clamp(2.5rem, 12vw, 4rem); }
+            .solid-text { font-size: 1.3rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="home.html" class="back-link">← 返回主页</a>
+
+        <!-- 重叠文字区域 -->
+        <div class="overlap-wrapper">
+            <div class="outline-text">DEVELOPING</div>
+            <div class="solid-text">开发中……</div>
+        </div>
+
+        <!-- 提示 -->
+        <div class="hint">资料下载功能正在建设中，敬请期待。</div>
+
+        <div class="footer-note">
+            <span>📧 2132653207@qq.com</span> ｜ <span>📞 +86 18960991652</span> ｜ <span>💬 wxid_tu5b4crgr14h22</span>
+        </div>
+    </div>
+</body>
+</html>
