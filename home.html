@@ -110,19 +110,19 @@
         .math-decor.left { left: 8%; top: 20%; }
         .math-decor.right { right: 8%; bottom: 10%; }
 
-        /* 新闻横幅样式 */
-        .news-banner {
+        /* 横幅卡片通用样式（新闻、下载） */
+        .banner-block {
             max-width: 1400px;
             margin: 2rem auto 1rem;
             padding: 0 1.5rem;
             width: 100%;
         }
-        .news-link {
+        .banner-link {
             text-decoration: none;
             color: inherit;
             display: block;
         }
-        .news-card {
+        .banner-card {
             background: var(--card-bg);
             border-radius: var(--radius);
             padding: 1.2rem 1.8rem;
@@ -133,11 +133,11 @@
             gap: 1rem;
             transition: all var(--transition);
         }
-        .news-link:hover .news-card {
+        .banner-link:hover .banner-card {
             box-shadow: 0 4px 16px rgba(0,0,0,0.08);
             transform: translateY(-1px);
         }
-        .news-tag {
+        .banner-tag {
             background: var(--accent);
             color: #fff;
             font-weight: 600;
@@ -148,25 +148,30 @@
             white-space: nowrap;
             font-family: "Noto Sans SC", "PingFang SC", sans-serif;
         }
-        .news-preview {
+        .banner-content {
             font-size: 0.95rem;
             color: var(--text);
             line-height: 1.4;
             flex: 1;
         }
-        .news-preview .news-title {
+        .banner-content .banner-heading {
             font-weight: 700;
             margin-right: 0.5rem;
         }
-        .news-preview .news-excerpt {
+        .banner-content .banner-desc {
             color: #6b5d4f;
         }
         @media (max-width: 700px) {
-            .news-card {
+            .banner-card {
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 0.5rem;
             }
+        }
+
+        /* 资料下载卡片可使用稍不同的色调（可选） */
+        .download-tag {
+            background: #2c5530; /* 深绿色调，与数学站暖色搭配 */
         }
 
         .main-grid {
@@ -259,10 +264,16 @@
             border-radius: var(--radius-sm);
             padding: 0.9rem 1.2rem;
             transition: all var(--transition);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
         .contest-link:hover .contest-card {
             box-shadow: 0 2px 10px rgba(0,0,0,0.04);
             background: #fffdf9;
+        }
+        .contest-info {
+            flex: 1;
         }
         .contest-name {
             font-weight: 600;
@@ -277,6 +288,32 @@
             flex-direction: column;
             gap: 0.1rem;
             font-family: "Noto Sans SC", sans-serif;
+        }
+
+        /* 比赛进行中状态 */
+        .contest-status {
+            display: none;
+            align-items: center;
+            gap: 0.3rem;
+            color: #2ecc71;
+            font-weight: 600;
+            font-size: 0.8rem;
+            white-space: nowrap;
+            margin-left: 0.5rem;
+        }
+        .contest-status.active {
+            display: flex;
+        }
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: #2ecc71;
+            border-radius: 50%;
+            animation: blink 1s infinite;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
         }
 
         /* 精神状态色块 */
@@ -325,13 +362,26 @@
     </div>
 
     <!-- 近期新闻全宽横幅 -->
-    <div class="news-banner">
-        <a href="news.html" class="news-link" title="查看新闻详情">
-            <div class="news-card">
-                <span class="news-tag">📰 突发</span>
-                <div class="news-preview">
-                    <span class="news-title">突发 2026中国东南地区数学奥林匹克地点变更</span>
-                    <span class="news-excerpt">—— 活动地点已经改为福建省福清市创业大道1号福清京师学校</span>
+    <div class="banner-block">
+        <a href="news.html" class="banner-link" title="查看新闻详情">
+            <div class="banner-card">
+                <span class="banner-tag">📰 突发</span>
+                <div class="banner-content">
+                    <span class="banner-heading">突发 2026中国东南地区数学奥林匹克地点变更</span>
+                    <span class="banner-desc">—— 活动地点已经改为福建省福清市创业大道1号福清京师学校</span>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <!-- 资料下载横幅 -->
+    <div class="banner-block">
+        <a href="download.html" class="banner-link" title="查看资料下载">
+            <div class="banner-card">
+                <span class="banner-tag download-tag">📥 资料下载</span>
+                <div class="banner-content">
+                    <span class="banner-heading">试题与解析下载</span>
+                    <span class="banner-desc">—— 模拟试卷、站主原创</span>
                 </div>
             </div>
         </a>
@@ -349,29 +399,38 @@
             <h2 class="column-title">🏆 近期比赛</h2>
             <a href="competitions.html" class="contest-link" title="查看比赛详情">
                 <div class="contest-card">
-                    <div class="contest-name">福建省高中数学联赛预赛</div>
-                    <div class="contest-meta">
-                        <span>📅 2026.06.28</span>
-                        <span>📍 地点未知</span>
+                    <div class="contest-info">
+                        <div class="contest-name">福建省高中数学联赛预赛</div>
+                        <div class="contest-meta">
+                            <span>📅 2026.06.28</span>
+                            <span>📍 地点未知</span>
+                        </div>
                     </div>
+                    <span class="contest-status" data-contest="prelim"></span>
                 </div>
             </a>
             <a href="competitions.html" class="contest-link" title="查看比赛详情">
                 <div class="contest-card">
-                    <div class="contest-name">中国东南地区数学奥林匹克</div>
-                    <div class="contest-meta">
-                        <span>📅 2026.07.28</span>
-                        <span>📍 福建·福清</span>
+                    <div class="contest-info">
+                        <div class="contest-name">中国东南地区数学奥林匹克</div>
+                        <div class="contest-meta">
+                            <span>📅 2026.07.28</span>
+                            <span>📍 福建·福清</span>
+                        </div>
                     </div>
+                    <span class="contest-status" data-contest="southeast"></span>
                 </div>
             </a>
             <a href="competitions.html" class="contest-link" title="查看比赛详情">
                 <div class="contest-card">
-                    <div class="contest-name">易湃杯数学竞赛</div>
-                    <div class="contest-meta">
-                        <span>📅 2026.08</span>
-                        <span>📍 浙江·杭州</span>
+                    <div class="contest-info">
+                        <div class="contest-name">易湃杯数学竞赛</div>
+                        <div class="contest-meta">
+                            <span>📅 2026.08</span>
+                            <span>📍 浙江·杭州</span>
+                        </div>
                     </div>
+                    <span class="contest-status" data-contest="yipai"></span>
                 </div>
             </a>
         </div>
@@ -392,7 +451,7 @@
     </div>
 
     <script>
-        // 原创题数据（id 与 problem.html 保持一致，顺序即为列表顺序）
+        // 原创题数据
         const problems = [
             { id: "039", title: "易湃改编的几何", excerpt: "如图, 在 $\\triangle ABC$ 中, $M$ 在 $BC$ 上且满足$MA=MC$...", geo: true, img: "image007.png" },
             { id: "040", title: "田忌赛马", excerpt: "（受爱尖子协议保护，该题目暂不可见，至2027.05.23放开浏览）", geo: false },
@@ -441,13 +500,11 @@
         const container = document.getElementById('original-list');
         problems.forEach((p) => {
             const detailPage = `problem.html?id=${p.id}`;
-
             const card = document.createElement('div');
             card.className = 'problem-card';
             let titleHtml = p.title;
             if (p.geo) titleHtml += ` <span class="geo-badge">📎 ${p.img}</span>`;
             card.innerHTML = `<div class="problem-title">${titleHtml}</div><div class="problem-excerpt">${p.excerpt}</div>`;
-
             const link = document.createElement('a');
             link.href = detailPage;
             link.className = 'problem-link';
@@ -455,6 +512,43 @@
             link.appendChild(card);
             container.appendChild(link);
         });
+
+        // --- 比赛进行中状态更新 ---
+        function updateContestStatus() {
+            const now = new Date();
+            const periods = {
+                prelim: {
+                    start: new Date(2026, 5, 28, 0, 0, 0),
+                    end: new Date(2026, 5, 28, 12, 0, 0)
+                },
+                southeast: {
+                    start: new Date(2026, 6, 28, 0, 0, 0),
+                    end: new Date(2026, 7, 2, 17, 0, 0)
+                },
+                yipai: {
+                    start: new Date(2026, 7, 17, 0, 0, 0),
+                    end: new Date(2026, 7, 17, 17, 0, 0)
+                }
+            };
+
+            for (const [contest, period] of Object.entries(periods)) {
+                const statusEl = document.querySelector(`[data-contest="${contest}"]`);
+                if (!statusEl) continue;
+                const isActive = now >= period.start && now <= period.end;
+                if (isActive) {
+                    statusEl.classList.add('active');
+                    if (!statusEl.querySelector('.status-dot')) {
+                        statusEl.innerHTML = '<span class="status-dot"></span> 进行中';
+                    }
+                } else {
+                    statusEl.classList.remove('active');
+                    statusEl.innerHTML = '';
+                }
+            }
+        }
+
+        updateContestStatus();
+        setInterval(updateContestStatus, 60000);
     </script>
 </body>
 </html>
