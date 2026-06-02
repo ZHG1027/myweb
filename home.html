@@ -46,8 +46,136 @@
                 radial-gradient(ellipse at 30% 30%, rgba(199,91,57,0.03) 0%, transparent 50%),
                 radial-gradient(ellipse at 70% 70%, rgba(199,91,57,0.03) 0%, transparent 50%);
             background-attachment: fixed;
+            position: relative;
         }
 
+        /* 右上角“我的FTA”按钮 */
+        .fta-btn {
+            position: fixed;
+            top: 1.5rem;
+            right: 2rem;
+            z-index: 1000;
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(199,91,57,0.25);
+            transition: all var(--transition);
+            font-family: "Noto Sans SC", "PingFang SC", sans-serif;
+            white-space: nowrap;
+        }
+        .fta-btn:hover {
+            background: var(--accent-hover);
+            box-shadow: 0 6px 18px rgba(199,91,57,0.35);
+            transform: translateY(-1px);
+        }
+        @media (max-width: 600px) {
+            .fta-btn {
+                top: 1rem;
+                right: 1rem;
+                padding: 0.5rem 1.2rem;
+                font-size: 0.85rem;
+            }
+        }
+
+        /* 登录弹窗背景遮罩 */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.3);
+            backdrop-filter: blur(2px);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        /* 登录框卡片 */
+        .modal-card {
+            background: #fff;
+            border-radius: var(--radius);
+            padding: 2rem 1.8rem;
+            width: 90%;
+            max-width: 380px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border);
+            text-align: center;
+            position: relative;
+            animation: modalPop 0.3s ease;
+        }
+        @keyframes modalPop {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        .modal-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--text);
+        }
+        .modal-input {
+            width: 100%;
+            padding: 0.7rem 1rem;
+            margin-bottom: 1rem;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            font-size: 0.95rem;
+            outline: none;
+            font-family: "Noto Sans SC", sans-serif;
+            transition: border-color var(--transition);
+        }
+        .modal-input:focus {
+            border-color: var(--accent);
+        }
+        .modal-actions {
+            display: flex;
+            gap: 0.8rem;
+            justify-content: center;
+            margin-top: 0.5rem;
+        }
+        .modal-btn {
+            padding: 0.6rem 1.8rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            border: none;
+            transition: all var(--transition);
+            font-family: "Noto Sans SC", sans-serif;
+        }
+        .btn-confirm {
+            background: var(--accent);
+            color: #fff;
+        }
+        .btn-confirm:hover {
+            background: var(--accent-hover);
+        }
+        .btn-cancel {
+            background: #f0e8dc;
+            color: var(--text);
+        }
+        .btn-cancel:hover {
+            background: #e2d5c3;
+        }
+        .error-msg {
+            color: #c0392b;
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+            display: none;
+        }
+
+        /* 其它原有样式保持不变 */
         .top-banner {
             width: 100%;
             background: linear-gradient(105deg, #f3ede8 0%, #fefaf6 50%, #f5efe8 100%);
@@ -110,7 +238,6 @@
         .math-decor.left { left: 8%; top: 20%; }
         .math-decor.right { right: 8%; bottom: 10%; }
 
-        /* 横幅卡片通用样式（新闻、下载） */
         .banner-block {
             max-width: 1400px;
             margin: 2rem auto 1rem;
@@ -148,6 +275,9 @@
             white-space: nowrap;
             font-family: "Noto Sans SC", "PingFang SC", sans-serif;
         }
+        .download-tag {
+            background: #2c5530;
+        }
         .banner-content {
             font-size: 0.95rem;
             color: var(--text);
@@ -169,11 +299,6 @@
             }
         }
 
-        /* 资料下载卡片可使用稍不同的色调（可选） */
-        .download-tag {
-            background: #2c5530; /* 深绿色调，与数学站暖色搭配 */
-        }
-
         .main-grid {
             max-width: 1400px;
             margin: 2.5rem auto;
@@ -183,7 +308,6 @@
             gap: 2rem;
             align-items: start;
         }
-
         @media (max-width: 1000px) {
             .main-grid { grid-template-columns: 1fr; max-width: 700px; }
         }
@@ -206,7 +330,6 @@
             color: var(--text);
         }
 
-        /* 原创题卡片链接 */
         .problem-link {
             text-decoration: none;
             color: inherit;
@@ -251,7 +374,6 @@
             font-weight: 500;
         }
 
-        /* 比赛卡片样式 */
         .contest-link {
             text-decoration: none;
             color: inherit;
@@ -272,9 +394,7 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.04);
             background: #fffdf9;
         }
-        .contest-info {
-            flex: 1;
-        }
+        .contest-info { flex: 1; }
         .contest-name {
             font-weight: 600;
             font-size: 0.95rem;
@@ -289,8 +409,6 @@
             gap: 0.1rem;
             font-family: "Noto Sans SC", sans-serif;
         }
-
-        /* 比赛进行中状态 */
         .contest-status {
             display: none;
             align-items: center;
@@ -301,9 +419,7 @@
             white-space: nowrap;
             margin-left: 0.5rem;
         }
-        .contest-status.active {
-            display: flex;
-        }
+        .contest-status.active { display: flex; }
         .status-dot {
             width: 8px;
             height: 8px;
@@ -316,7 +432,6 @@
             50% { opacity: 0.3; }
         }
 
-        /* 精神状态色块 */
         .mood-box {
             background: linear-gradient(145deg, #f5e3c8, #eddcc3);
             border-radius: var(--radius);
@@ -354,6 +469,23 @@
     </style>
 </head>
 <body>
+    <!-- 右上角“我的FTA”按钮 -->
+    <button class="fta-btn" id="ftaBtn">我的FTA</button>
+
+    <!-- 登录弹窗 -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-card">
+            <h3 class="modal-title">🔐 验证身份</h3>
+            <div class="error-msg" id="errorMsg">账户或密码错误</div>
+            <input type="text" class="modal-input" id="accountInput" placeholder="账户" autocomplete="off">
+            <input type="password" class="modal-input" id="passwordInput" placeholder="密码">
+            <div class="modal-actions">
+                <button class="modal-btn btn-cancel" id="cancelBtn">取消</button>
+                <button class="modal-btn btn-confirm" id="confirmBtn">确定</button>
+            </div>
+        </div>
+    </div>
+
     <div class="top-banner">
         <span class="math-decor left">∑</span>
         <span class="math-decor right">π</span>
@@ -361,7 +493,6 @@
         <div class="banner-sub">—— 原创 · 比赛 · 思考 ——</div>
     </div>
 
-    <!-- 近期新闻全宽横幅 -->
     <div class="banner-block">
         <a href="news.html" class="banner-link" title="查看新闻详情">
             <div class="banner-card">
@@ -374,27 +505,24 @@
         </a>
     </div>
 
-    <!-- 资料下载横幅 -->
     <div class="banner-block">
         <a href="download.html" class="banner-link" title="查看资料下载">
             <div class="banner-card">
                 <span class="banner-tag download-tag">📥 资料下载</span>
                 <div class="banner-content">
                     <span class="banner-heading">试题与解析下载</span>
-                    <span class="banner-desc">—— 模拟试卷、站主原创</span>
+                    <span class="banner-desc">—— 历年真题、模拟试卷、答案汇总</span>
                 </div>
             </div>
         </a>
     </div>
 
     <div class="main-grid">
-        <!-- 左栏：原创题目 -->
         <div class="column" id="original-column">
             <h2 class="column-title">📐 我的原创</h2>
             <div id="original-list"></div>
         </div>
 
-        <!-- 中栏：近期比赛 -->
         <div class="column">
             <h2 class="column-title">🏆 近期比赛</h2>
             <a href="competitions.html" class="contest-link" title="查看比赛详情">
@@ -435,7 +563,6 @@
             </a>
         </div>
 
-        <!-- 右栏：站主精神状态 -->
         <div class="column">
             <h2 class="column-title">🧠 站主精神</h2>
             <a href="emotion.html" class="mood-box" title="点击查看详细精神状态">
@@ -513,7 +640,7 @@
             container.appendChild(link);
         });
 
-        // --- 比赛进行中状态更新 ---
+        // 比赛进行中状态
         function updateContestStatus() {
             const now = new Date();
             const periods = {
@@ -530,7 +657,6 @@
                     end: new Date(2026, 7, 17, 17, 0, 0)
                 }
             };
-
             for (const [contest, period] of Object.entries(periods)) {
                 const statusEl = document.querySelector(`[data-contest="${contest}"]`);
                 if (!statusEl) continue;
@@ -546,9 +672,51 @@
                 }
             }
         }
-
         updateContestStatus();
         setInterval(updateContestStatus, 60000);
+
+        // 登录逻辑
+        const ftaBtn = document.getElementById('ftaBtn');
+        const modalOverlay = document.getElementById('modalOverlay');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const confirmBtn = document.getElementById('confirmBtn');
+        const accountInput = document.getElementById('accountInput');
+        const passwordInput = document.getElementById('passwordInput');
+        const errorMsg = document.getElementById('errorMsg');
+
+        ftaBtn.addEventListener('click', () => {
+            modalOverlay.classList.add('active');
+            accountInput.value = '';
+            passwordInput.value = '';
+            errorMsg.style.display = 'none';
+        });
+
+        cancelBtn.addEventListener('click', () => {
+            modalOverlay.classList.remove('active');
+        });
+
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) {
+                modalOverlay.classList.remove('active');
+            }
+        });
+
+        confirmBtn.addEventListener('click', () => {
+            const account = accountInput.value.trim();
+            const password = passwordInput.value.trim();
+            if (account === 'xiaodungou' && password === 'brocardenthusiast') {
+                window.location.href = 'ftaaa.html';
+            } else {
+                errorMsg.style.display = 'block';
+                passwordInput.value = '';
+            }
+        });
+
+        passwordInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                confirmBtn.click();
+            }
+        });
     </script>
 </body>
 </html>
