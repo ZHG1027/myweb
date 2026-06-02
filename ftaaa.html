@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文件传输助手 · 小盾构的数学站</title>
+    <style>
+        :root {
+            --bg: #faf8f5;
+            --text: #2c2416;
+            --accent: #c75b39;
+            --accent-hover: #a84326;
+            --border: #e8e0d5;
+            --footer-text: #9b8c7c;
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+            --shadow-md: 0 4px 24px rgba(0,0,0,0.06);
+            --radius: 18px;
+            --file-hover: #f5efe8;
+            --pptx-orange: #d24726;   /* Office 橙 */
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: "Noto Serif SC", "Source Han Serif SC", "STSong", "Songti SC", "SimSun", "KaiTi", "楷体", "Georgia", serif;
+            background-color: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image:
+                radial-gradient(ellipse at 30% 30%, rgba(199,91,57,0.03) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 70%, rgba(199,91,57,0.03) 0%, transparent 50%);
+            background-attachment: fixed;
+            padding: 2rem 1.5rem;
+        }
+
+        .container {
+            position: relative;
+            max-width: 800px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: var(--radius);
+            padding: 2.5rem 2rem;
+            box-shadow: var(--shadow-md), var(--shadow-sm);
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+
+        /* 返回链接绝对定位 */
+        .back-link {
+            position: absolute;
+            top: 1.8rem;
+            left: 2rem;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            font-family: "Noto Sans SC", "PingFang SC", sans-serif;
+            font-size: 0.95rem;
+            z-index: 2;
+        }
+        .back-link:hover { text-decoration: underline; }
+
+        .page-title {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            margin: 1rem 0 2rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent);
+            display: inline-block;
+        }
+
+        /* 文件列表容器 */
+        .file-list {
+            width: 100%;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            background: #fefcf9;
+        }
+
+        /* 表头 */
+        .file-header {
+            display: grid;
+            grid-template-columns: 50px 1fr 90px 90px 100px;
+            align-items: center;
+            padding: 0.8rem 1.2rem;
+            background: #faf7f2;
+            border-bottom: 1px solid var(--border);
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: #5a4a36;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-family: "Noto Sans SC", sans-serif;
+        }
+        .file-row {
+            display: grid;
+            grid-template-columns: 50px 1fr 90px 90px 100px;
+            align-items: center;
+            padding: 0.9rem 1.2rem;
+            border-bottom: 1px solid #f0e8dc;
+            transition: background 0.2s ease;
+            font-size: 0.95rem;
+        }
+        .file-row:last-child {
+            border-bottom: none;
+        }
+        .file-row:hover {
+            background: var(--file-hover);
+        }
+
+        /* 自定义图标 */
+        .file-icon-cell {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .icon-pptx {
+            width: 32px;
+            height: 32px;
+            background: var(--pptx-orange);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: 900;
+            font-size: 1rem;
+            font-family: "Segoe UI", "Noto Sans SC", sans-serif;
+            line-height: 1;
+            letter-spacing: 0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .file-name-cell {
+            text-align: left;
+            font-weight: 600;
+            padding-left: 0.5rem;
+        }
+        .file-type-cell,
+        .file-size-cell,
+        .file-action-cell {
+            text-align: center;
+            font-family: "Noto Sans SC", sans-serif;
+            color: #6b5d4f;
+        }
+        .download-link {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            background: #fef3e4;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+        .download-link:hover {
+            background: var(--accent);
+            color: #fff;
+        }
+
+        /* 响应式 */
+        @media (max-width: 650px) {
+            .container { padding: 2rem 1rem; }
+            .file-header, .file-row {
+                grid-template-columns: 40px 1fr 70px 70px 70px;
+                padding: 0.7rem 0.8rem;
+                font-size: 0.8rem;
+            }
+            .icon-pptx { width: 26px; height: 26px; font-size: 0.85rem; }
+            .page-title { font-size: 1.6rem; }
+            .back-link { top: 1rem; left: 1rem; }
+        }
+        @media (max-width: 500px) {
+            .file-header { display: none; }
+            .file-row {
+                grid-template-columns: 40px 1fr 80px;
+                gap: 0.5rem;
+                padding: 1rem;
+            }
+            .file-type-cell, .file-size-cell { display: none; }
+            .file-action-cell { text-align: right; }
+        }
+
+        .footer-note {
+            text-align: center;
+            color: var(--footer-text);
+            font-size: 0.75rem;
+            padding: 2rem 0 0;
+            margin-top: 2.5rem;
+            border-top: 1px dashed var(--border);
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="home.html" class="back-link">← 返回主页</a>
+        <h1 class="page-title">📁 文件传输助手</h1>
+
+        <!-- 文件列表 -->
+        <div class="file-list">
+            <div class="file-header">
+                <div></div>
+                <div>名称</div>
+                <div>类型</div>
+                <div>大小</div>
+                <div>操作</div>
+            </div>
+            <div class="file-row">
+                <div class="file-icon-cell">
+                    <div class="icon-pptx">P</div>
+                </div>
+                <div class="file-name-cell">geography.pptx</div>
+                <div class="file-type-cell">PPTX</div>
+                <div class="file-size-cell">579 kB</div>
+                <div class="file-action-cell">
+                    <a href="geography.pptx" download class="download-link">下载</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-note">
+            <span>📧 2132653207@qq.com</span> ｜ <span>📞 +86 18960991652</span> ｜ <span>💬 wxid_tu5b4crgr14h22</span>
+        </div>
+    </div>
+</body>
+</html>
