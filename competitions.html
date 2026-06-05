@@ -43,8 +43,8 @@
         }
 
         .back-link {
-            display: inline-block;
-            margin-bottom: 2rem;
+            display: block;
+            margin-bottom: 1.5rem;
             color: var(--accent);
             text-decoration: none;
             font-weight: 600;
@@ -60,7 +60,7 @@
             margin-bottom: 2rem;
             padding-bottom: 0.5rem;
             border-bottom: 2px solid var(--accent);
-            display: inline-block;
+            display: block;
         }
 
         .competition-section {
@@ -95,15 +95,89 @@
             color: #2c2416;
             line-height: 1.8;
             margin-top: 1rem;
-            white-space: pre-wrap;
             text-align: justify;
         }
         .comp-detail p { margin-bottom: 1em; }
+        .comp-detail strong {
+            font-weight: 700;
+            color: #2c2416;
+        }
         .no-detail {
             color: #9b8c7c;
             font-style: italic;
             font-family: "Noto Sans SC", sans-serif;
             margin-top: 0.8rem;
+        }
+
+        /* 表格通用样式 */
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.9rem;
+            text-align: center;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            font-family: "Noto Sans SC", "PingFang SC", sans-serif;
+        }
+        .schedule-table th, .schedule-table td {
+            padding: 0.7rem 0.5rem;
+            border-bottom: 1px solid #f0e8dc;
+            vertical-align: middle;
+        }
+        .schedule-table th {
+            background: #faf7f2;
+            font-weight: 700;
+            color: #5a4a36;
+            border-bottom: 1px solid var(--border);
+        }
+        .schedule-table tr:last-child td {
+            border-bottom: none;
+        }
+        .schedule-table .diag-cell {
+            position: relative;
+            background: #faf7f2;
+        }
+        .diag-text-top {
+            position: absolute;
+            top: 4px;
+            right: 6px;
+            font-size: 0.7rem;
+            color: #6b5d4f;
+        }
+        .diag-text-bottom {
+            position: absolute;
+            bottom: 4px;
+            left: 6px;
+            font-size: 0.7rem;
+            color: #6b5d4f;
+        }
+
+        /* 易湃表格特定颜色 */
+        .table-cyan-header {
+            background-color: #cce5ff; /* 近似 cyan!30 */
+            font-weight: bold;
+            text-align: center;
+        }
+        .table-yellow-row {
+            background-color: #fff3cd; /* 近似 yellow!50 */
+        }
+        .text-red {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        /* 响应式表格：小屏时允许水平滚动 */
+        @media (max-width: 700px) {
+            .table-responsive {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            .schedule-table {
+                min-width: 600px;
+                font-size: 0.8rem;
+            }
         }
 
         .footer-note {
@@ -127,47 +201,142 @@
         <a href="home.html" class="back-link">← 返回主页</a>
         <h1 class="page-title">🏆 近期比赛详情</h1>
 
-        <!-- 比赛1：福建省高中数学联赛预赛 -->
+        <!-- 福建省高中数学联赛预赛 -->
         <div class="competition-section">
             <div class="comp-name">福建省高中数学联赛预赛</div>
             <div class="comp-meta">
                 <span>📅 2026.06.28</span>
-                <span>📍 地点待定</span>
+                <span>📍 福建福州（考点未知）</span>
             </div>
             <div class="no-detail">暂无详细介绍，敬请期待。</div>
         </div>
 
-        <!-- 比赛2：中国东南地区数学奥林匹克（铁观音杯） -->
+        <!-- 中国东南地区数学奥林匹克 -->
         <div class="competition-section">
             <div class="comp-name">中国东南地区数学奥林匹克（铁观音杯）</div>
             <div class="comp-meta">
                 <span>📅 2026.07.28 – 08.02</span>
-                <span>📍 福建泉州 · 安溪恒兴中学</span>
+                <span>📍 福建福州 · 福清京师学校</span>
             </div>
             <div class="comp-detail">
-                <p><strong>赛事背景与意义</strong></p>
-                <p>数学作为人类认知世界的基础工具，其重要性贯穿于文明发展的每一个阶段。在当今社会，数学无处不在，不仅是人工智能、量子计算等前沿领域的核心支撑，更是国家战略竞争力的重要基础。2018年国务院印发《关于全面加强基础科学研究的若干意见》，强调对数学等重点基础学科给予更多倾斜；2019年科技部、教育部、中国科学院、自然科学基金委联合制定的《关于加强数学科学研究工作方案》指出：“数学是自然科学的基础，也是重大技术创新发展的基础。数学实力往往影响着国家实力。”党的二十大报告指出要加强基础学科研究，2022年中央深改委、教育部印发《关于加强基础学科人才培养的意见》，指出数学作为基础学科，要“加快建设数学强国，完善数学人才早发现、早培养、早支持机制”。</p>
-                <p>早在2003年，浙江、江西、福建东南三省数学学会从国家发展战略出发，在老一辈数学家们的积极倡导下成立东南三省数学协作体（也称中国东南数学奥林匹克，后改为中国东南数学夏令营），旨在发现数学苗子，培养数学拔尖创新人才。协作体汇聚了三省三十多所高中名校，主要活动是举办一年一度的夏令营，夏令营由三省协作体学校轮流承办。夏令营期间还邀请北大、清华、浙大、复旦及南京大学等高校著名专家、教授开设数学文化系列讲座，这些讲座是数学课堂的有益补充，让学生沉浸式体验数学之美。夏令营声誉日隆，已成为国内规模和影响最大的数学普及活动之一。近年来，随着本活动影响力的不断扩大，北京、上海、广东、江苏、山东、山西、河北、陕西、安徽、甘肃、四川、辽宁、吉林、黑龙江等二十多个省、自治区、直辖市的重点中学，以及港澳台地区和部分境外中学，也纷纷派队参加活动。截至2025年，夏令营已成功举办了二十二届，成绩斐然，选拔和培养了二十多名国际数学奥林匹克金牌选手，为国家输送了一批高层次数学人才，他们有的成长为数学专业方向的领军人才。</p>
-                <p><strong>本届举办地</strong></p>
-                <p>泉州市，别称鲤城，地处中国东南沿海，是国家首批历史文化名城，2021年获评世遗城市，近年来成为文旅热点。安溪县是泉州市下辖县，是铁观音乌龙茶的故乡、台湾同胞主要祖籍地，位于泉州西北部，是“中国县域经济基本竞争力百强县”“中国最具投资潜力中小城市百强县”“中国科技进步先进县”“中国最具特色魅力旅游名县”。安溪拥有“三铁三世遗”的文化瑰宝——全球重要农业文化遗产“安溪铁观音茶文化系统”、人类非物质文化遗产“铁观音制作技艺”以及世界文化遗产“青阳下草埔冶铁遗址”，名人乡贤包括林嗣环、李光地、王永庆等，拥有丰富的自然和人文资源。</p>
-                <p>安溪恒兴中学创办于2002年8月，位于安溪县城，是由全国政协委员、厦门市工商联主席、恒兴集团公司董事长柯希平先生兴建的非营利性民办完全中学。学校荣获“全国民办教育先进集体”“小平科技创新实验室建设学校”“中美千校携手项目校”“全国青少年校园足球特色学校”等荣誉。集团还办有厦门华师希平双语学校，是华东师大合作指导的K15民办校。</p>
-                <p><strong>2026年夏令营通知</strong></p>
-                <p>经组委会研究，决定于2026年7月28日至8月2日在福建省安溪恒兴中学举办2026年“铁观音杯”中国东南地区数学夏令营，由福建省安溪恒兴中学实施落地。现将有关事项通知如下：</p>
-                <p>一、时间地点：2026年7月28日至8月2日。本次夏令营场地设在福建省安溪恒兴中学。</p>
-                <p>二、主办单位：中国东南地区数学夏令营组织委员会</p>
-                <p>三、承办单位：安溪县教育局、福建省安溪恒兴中学、厦门市华师希平双语学校</p>
-                <p>四、活动内容：数学文化传播、数学实践活动及清北等著名高校专家系列讲座。</p>
+                <p>数学是人类认知世界的基础工具，贯穿于社会文明发展的全过程，在人工智能、量子计算等前沿科技领域，以及国家战略竞争力构建中发挥着核心支撑作用。2018年，国务院《关于全面加强基础科学研究的若干意见》强调向数学等重点基础学科倾斜。2019年，科技部、教育部、中国科学院与国家自然科学基金委员会等四部门联合制定《关于加强数学科学研究工作方案》指出，数学是自然科学的基础，也是重大技术创新发展的基础，数学实力影响着国家实力。党的二十大报告要求加强基础学科研究，2022年，中央全面深化改革委员会与教育部联合印发《关于加强基础学科人才培养的意见》，提出要加快推进数学强国建设，健全完善数学人才早发现、早培养、早支持的工作机制。</p>
+                <p>早在2003年，浙江、江西、福建东南三省数学学会从国家发展战略出发，在老一辈数学家们的积极倡导下成立东南三省数学协作体，决定每年暑期举办一次夏令营暨高中数学交流活动。初名闽浙赣数学夏令营，后更名为中国东南地区数学奥林匹克，简称东南数奥(CSMO)，现称为中国东南地区高中数学文化交流活动，活动旨在发现数学苗子、培养数学拔尖创新人才。活动内容包括名家学术讲座、文化交流、数学实践(数学竞赛)等，邀请北大、清华、浙大、复旦、南大等高校专家开设数学文化系列讲座，让学生沉浸式体验数学之美。该活动已发展为国内颇具影响力的数学交流平台，吸引北京、上海、广东、江苏、山东、山西、河北、陕西、安徽、甘肃、四川、辽宁、吉林、黑龙江等二十多个省区市重点中学参赛。截至2025年，此项活动已成功举办二十二届，成果斐然：先后选拔培养了二十多名国际数学奥林匹克金牌选手，为国家输送了一大批高层次数学后备人才，其中不少人如今已成长为数学领域的专业领军人才。</p>
+                <p>经组委会研究决定，2026年7月28日至8月2日在福建省福州市福清京师学校举办2026年中国东南地区高中数学交流活动。现将有关事项通知如下：</p>
+                <p><strong>一、活动时间</strong><br>2026年7月28日至8月2日</p>
+                <p><strong>二、活动地点</strong><br>福建省福清市创业大道1号福清京师学校</p>
+                <p><strong>三、主办单位</strong><br>中国东南地区数学奥林匹克组织委员会、福建省数学学会</p>
+                <p><strong>四、承办单位</strong><br>福清京师学校、福清京师高级中学</p>
+                <p><strong>五、协办单位</strong><br>福建教育出版社、湖南省新教材有限责任公司、闽浙赣数学协作体学校</p>
+                <p><strong>六、活动内容</strong><br>数学文化传播、数学实践活动、著名高校专家系列讲座等。</p>
+                <p><strong>七、活动安排</strong></p>
+                <table class="schedule-table">
+                    <thead>
+                        <tr>
+                            <th class="diag-cell">
+                                <span class="diag-text-top">时段</span>
+                                <span class="diag-text-bottom">日期</span>
+                            </th>
+                            <th>上午</th>
+                            <th>下午</th>
+                            <th>晚上</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><strong>7月28日</strong></td><td>报到</td><td>报到</td><td>报到</td></tr>
+                        <tr><td><strong>7月29日</strong></td><td>1.开幕式<br>2.学术报告</td><td>学术讲座</td><td>文化交流</td></tr>
+                        <tr><td><strong>7月30日</strong></td><td>第一场活动<br>(8:00-12:00)</td><td>学术讲座</td><td>文化交流</td></tr>
+                        <tr><td><strong>7月31日</strong></td><td>第二场活动<br>(8:00-12:00)</td><td>学术讲座</td><td>学术讲座</td></tr>
+                        <tr><td><strong>8月1日</strong></td><td>文化交流</td><td>文化交流</td><td>文化交流</td></tr>
+                        <tr><td><strong>8月2日</strong></td><td>闭幕式<br>(8:00-10:00)</td><td colspan="2">返程</td></tr>
+                    </tbody>
+                </table>
+                <p><strong>八、参加人员</strong><br>1.高一代表队：高一升高二学生。<br>2.高二代表队：高二升高三学生。</p>
+                <p><strong>九、组队方式</strong><br>每个学校可以单独组高一高二队，也可以高一、高二都组队。</p>
+                <p><strong>十、评奖方式</strong><br>按两场活动的成绩之和从高到低评定个人一、二、三等奖，取各队前4名的成绩之和从高到低评定团体奖。</p>
             </div>
         </div>
 
-        <!-- 比赛3：易湃杯数学竞赛 -->
+        <!-- 易湃杯数学竞赛 -->
         <div class="competition-section">
             <div class="comp-name">易湃杯数学竞赛</div>
             <div class="comp-meta">
-                <span>📅 2026.08</span>
+                <span>📅 2026.08.17-08.26</span>
                 <span>📍 浙江杭州</span>
             </div>
-            <div class="no-detail">暂无详细介绍，敬请期待。</div>
+            <div class="comp-detail">
+                <p>由金牌教练田开斌、顾冬华以及一众金牌助教授课、阅卷，具体安排如下：</p>
+                <div class="table-responsive">
+                    <table class="schedule-table">
+                        <thead>
+                            <tr>
+                                <th colspan="6" class="table-cyan-header">⑦高联全真模拟与刷题班</th>
+                            </tr>
+                            <tr>
+                                <th>日期</th>
+                                <th>8月17日</th>
+                                <th>8月18日</th>
+                                <th>8月19日</th>
+                                <th>8月20日</th>
+                                <th>8月21日</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>老师</td>
+                                <td>易湃团队</td>
+                                <td>易湃团队</td>
+                                <td>易湃团队</td>
+                                <td>易湃团队</td>
+                                <td>易湃团队</td>
+                            </tr>
+                            <tr>
+                                <td>内容</td>
+                                <td colspan="5">模拟及刷题</td>
+                            </tr>
+                            <tr>
+                                <td>时间</td>
+                                <td>8:00--9:20 一试<br>9:40--12:30 二试<br>14:30--17:00 刷题<br>18:00--21:00 讲评</td>
+                                <td>8:00--9:20 一试<br>9:40--12:30 二试<br>14:30--17:00 刷题<br>18:00--21:00 讲评</td>
+                                <td>8:00--9:20 一试<br>9:40--12:30 二试<br>14:30--17:00 刷题<br>18:00--21:00 讲评</td>
+                                <td>8:00--9:20 一试<br>9:40--12:30 二试<br>14:30--17:00 刷题<br>18:00--21:00 讲评</td>
+                                <td>8:00--9:20 一试<br>9:40--12:30 二试<br>14:30--17:00 刷题<br>18:00--21:00 讲评</td>
+                            </tr>
+                            <tr>
+                                <th>日期</th>
+                                <th>8月22日</th>
+                                <th>8月23日</th>
+                                <th>8月24日</th>
+                                <th>8月25日</th>
+                                <th>8月26日</th>
+                            </tr>
+                            <tr>
+                                <td>老师</td>
+                                <td>易湃团队</td>
+                                <td>易湃团队</td>
+                                <td>易湃团队</td>
+                                <td>易湃团队</td>
+                                <td>易湃团队</td>
+                            </tr>
+                            <tr>
+                                <td>内容</td>
+                                <td colspan="5">模拟及刷题</td>
+                            </tr>
+                            <tr>
+                                <td>时间</td>
+                                <td>8:00--9:20 一试<br>9:40--12:30 二试<br>14:30--17:00 刷题<br>18:00--21:00 讲评</td>
+                                <td>8:00--9:20 一试<br>9:40--12:30 二试<br>14:30--17:00 刷题<br>18:00--21:00 讲评</td>
+                                <td>8:00--9:20 一试<br>9:40--12:30 二试<br>14:30--17:00 刷题<br>18:00--21:00 讲评</td>
+                                <td>8:00--9:20 一试<br>9:40--12:30 二试<br>14:30--17:00 刷题<br>18:00--21:00 讲评</td>
+                                <td>8:00--9:20 一试<br>9:40--12:30 二试<br>14:30--17:00 <span class="text-red">讲评</span><br><span class="text-red">返程</span></td>
+                            </tr>
+                            <tr class="table-yellow-row">
+                                <td colspan="2"><strong>免费赠送模拟一次(线上)</strong></td>
+                                <td colspan="4">时间：2026年9月6日：8:00--9:20 一试 9:40--12:30 二试 14:30--17:00 讲评</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 
