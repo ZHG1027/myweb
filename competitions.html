@@ -156,19 +156,48 @@
 
         /* 易湃表格特定颜色 */
         .table-cyan-header {
-            background-color: #cce5ff; /* 近似 cyan!30 */
+            background-color: #cce5ff;
             font-weight: bold;
             text-align: center;
         }
         .table-yellow-row {
-            background-color: #fff3cd; /* 近似 yellow!50 */
+            background-color: #fff3cd;
         }
         .text-red {
             color: #dc3545;
             font-weight: bold;
         }
 
-        /* 响应式表格：小屏时允许水平滚动 */
+        /* 往期回顾按钮 */
+        .review-btn-wrapper {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+        .review-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.7rem 2rem;
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all var(--transition);
+            box-shadow: 0 4px 12px rgba(199,91,57,0.25);
+            font-family: "Noto Sans SC", "PingFang SC", sans-serif;
+        }
+        .review-btn:hover {
+            background: #a84326;
+            box-shadow: 0 6px 18px rgba(199,91,57,0.35);
+            transform: translateY(-1px);
+        }
+
+        /* 响应式表格 */
         @media (max-width: 700px) {
             .table-responsive {
                 overflow-x: auto;
@@ -335,6 +364,11 @@
                             </tr>
                         </tbody>
                     </table>
+                </div>
+
+                <!-- 往期回顾按钮 -->
+                <div class="review-btn-wrapper">
+                    <a href="epi.html" class="review-btn">📅 往期回顾</a>
                 </div>
             </div>
         </div>
