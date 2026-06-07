@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2025年eπ训练营第五天试题 · 小盾构的数学站</title>
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+                ignoreHtmlClass: 'no-math'
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+    <style>
+        :root {
+            --bg: #faf8f5;
+            --text: #2c2416;
+            --accent: #c75b39;
+            --border: #e8e0d5;
+            --footer-text: #9b8c7c;
+            --shadow-md: 0 4px 24px rgba(0,0,0,0.06);
+            --radius: 18px;
+            --radius-sm: 12px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: "Noto Serif SC", "Source Han Serif SC", "STSong", "Songti SC", "SimSun", "KaiTi", "楷体", "Georgia", serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.8;
+            background-image:
+                radial-gradient(ellipse at 30% 30%, rgba(199,91,57,0.03) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 70%, rgba(199,91,57,0.03) 0%, transparent 50%);
+            background-attachment: fixed;
+            padding: 2rem 1.5rem;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            position: relative;
+            max-width: 900px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: var(--radius);
+            padding: 2.5rem 2rem;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border);
+        }
+
+        .back-link {
+            position: absolute;
+            top: 1.8rem;
+            left: 2rem;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            font-family: "Noto Sans SC", "PingFang SC", sans-serif;
+            font-size: 0.95rem;
+            z-index: 2;
+        }
+        .back-link:hover { text-decoration: underline; }
+
+        .page-title {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            margin-bottom: 2rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent);
+            text-align: center;
+            display: block;
+        }
+
+        .content-section {
+            margin-bottom: 2rem;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 2rem 0 1rem;
+            color: var(--accent);
+            border-left: 4px solid var(--accent);
+            padding-left: 0.8rem;
+        }
+
+        .problem-item {
+            margin-bottom: 1.8rem;
+        }
+
+        .problem-item p {
+            margin: 0.4rem 0;
+        }
+
+        ol {
+            padding-left: 1.5rem;
+            list-style-type: decimal;
+        }
+
+        ul {
+            padding-left: 1.5rem;
+            list-style-type: disc;
+        }
+
+        .geometry-img {
+            display: block;
+            max-width: 100%;
+            margin: 1.5rem auto;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+        }
+
+        /* 成绩统计卡片 */
+        .score-section {
+            margin-top: 2.5rem;
+            background: #fefcf9;
+            border: 1px solid #f0e8dc;
+            border-radius: var(--radius-sm);
+            padding: 1.5rem 1.8rem;
+        }
+        .score-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #3a2f22;
+            margin-bottom: 1rem;
+            padding-bottom: 0.4rem;
+            border-bottom: 2px solid var(--accent);
+            display: inline-block;
+        }
+        .score-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem 2rem;
+            margin-top: 0.5rem;
+        }
+        .score-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            padding: 0.3rem 0;
+            border-bottom: 1px dotted #e8e0d5;
+            font-size: 0.95rem;
+        }
+        .score-label {
+            font-weight: 600;
+            color: #5a4a36;
+        }
+        .score-value {
+            font-weight: 700;
+            color: var(--accent);
+            font-family: "Noto Sans SC", sans-serif;
+        }
+        .score-note {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: #6b5d4f;
+            font-style: italic;
+        }
+
+        .footer-note {
+            text-align: center;
+            color: var(--footer-text);
+            font-size: 0.75rem;
+            padding: 2rem 1rem 0;
+            margin-top: 2rem;
+            border-top: 1px dashed var(--border);
+            opacity: 0.8;
+        }
+
+        @media (max-width: 600px) {
+            .container { padding: 2rem 1.2rem; }
+            .page-title { font-size: 1.6rem; }
+            .back-link { top: 1rem; left: 1rem; }
+            .score-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="competitions.html" class="back-link">← 返回比赛页</a>
+        <h1 class="page-title">2025年 $e\pi$ 训练营第五天试题</h1>
+
+        <!-- 一试 -->
+        <h2>一 试</h2>
+        <div class="content-section">
+            <p><strong>一、填空题：本大题共8小题，每小题8分，满分64分。</strong></p>
+            <ol>
+                <li class="problem-item">
+                    已知函数 $f(x)$、$g(x)$ 的定义域均为 $\mathbb{R}$，且 $f(x+4)$ 为偶函数，$g(x+4)+1$ 为奇函数，若对任意 $x\in\mathbb{R}$，均有 $f(x)+g(x)=x^2+1$，则 $g(2025)=$ $\underline{\qquad\qquad}$。
+                </li>
+                <li class="problem-item">
+                    已知 $a,b\in\mathbb{R}^+$，$a+b=6$，则 $\dfrac{a^2+8b}{a^2b}$ 的最小值为 $\underline{\qquad\qquad}$。
+                </li>
+                <li class="problem-item">
+                    已知 $\sin(\alpha-\beta)=2\cos(\alpha+\beta)$，$\tan(\alpha-\beta)=\dfrac{1}{2025}$，则 $\tan\alpha-\tan\beta=$ $\underline{\qquad\qquad}$。
+                </li>
+                <li class="problem-item">
+                    已知 $a,b\in\mathbb{R}$，且 $b\ge0$，则 $\sqrt{(a-b)^2+(e^a-2\sqrt{b})^2}+b$ 的最小值为 $\underline{\qquad\qquad}$。
+                </li>
+                <li class="problem-item">
+                    记 $x=0.\dot{2}02\dot{5}$ 为十进制无限循环小数，则 $\displaystyle\sum_{n=1}^{\infty}\dfrac{(-1)^{\lfloor 2^n x\rfloor}}{2^n}=$ $\underline{\qquad\qquad}$。
+                </li>
+                <li class="problem-item">
+                    曲线 $y=5-x^2$ 与 $y=\dfrac{1}{x}$ 交于 $A$、$B$、$C$ 三点，则 $\triangle ABC$ 的外接圆方程为 $\underline{\qquad\qquad}$。
+                </li>
+                <li class="problem-item">
+                    在三棱锥 $P-ABC$ 中，$PA=PB=CA=CB=2$，$\angle APB=\angle ACB=90^\circ$，$D$、$E$、$F$ 分别为 $PA$、$PB$、$PC$ 上靠近点 $P$ 的三等分点，若此时恰好存在一个小球与三棱锥 $P-ABC$ 的四个面均相切，且小球同时还与平面 $DEF$ 相切，则该小球的半径为 $\underline{\qquad\qquad}$。
+                </li>
+                <li class="problem-item">
+                    设有2025个袋子，每袋有5个白球和40个黑球，先从第一个袋中随机摸出一个球，记下颜色后把它放入第二个袋中，再从第二个袋中随机摸出一个球，记下颜色后把它放入第三个袋中，依次进行，最后从第2025个袋中随机摸出一个球，记下颜色。这2025个摸出的球中白球个数的期望为 $\underline{\qquad\qquad}$。
+                </li>
+            </ol>
+
+            <p><strong>二、解答题：本大题共3小题，满分56分。解答应写出文字说明、证明过程或演算步骤。</strong></p>
+            <ol start="9">
+                <li class="problem-item">
+                    <p><strong>（本题满分16分）</strong></p>
+                    已知双曲线 $\Gamma$：$x^2-\dfrac{y^2}{3}=1$，是否存在以原点为圆心的定圆 $\Omega$，使得对 $\Gamma$ 上任一点 $A$（$A$ 在 $\Omega$ 外），过 $A$ 作 $\Omega$ 的两条切线 $AB$、$AC$（其中 $B$、$C$ 分别是两切线与 $\Gamma$ 的另一个交点），总有 $|AB|=|AC|$。若存在这样的定圆 $\Omega$，求出其方程；若不存在，请说明理由。
+                </li>
+                <li class="problem-item">
+                    <p><strong>（本题满分20分）</strong></p>
+                    已知 $a\ge b\ge c\ge d>0$，$a+b+c+d=5$，$\dfrac{1}{a}+\dfrac{1}{b}+\dfrac{1}{c}+\dfrac{1}{d}=4$，试求 $\dfrac{a}{d}$ 的最小值。
+                </li>
+                <li class="problem-item">
+                    <p><strong>（本题满分20分）</strong></p>
+                    设复数 $a$、$b$、$c$ 满足：对任意模不超过1的复数 $z$，都有 $|az^2+bz+c|\le1$，试求 $|a|+|b|+|c|$ 的最大值。
+                </li>
+            </ol>
+        </div>
+
+        <!-- 加试 -->
+        <h2>加 试</h2>
+        <div class="content-section">
+            <div class="problem-item">
+                <p><strong>一、（本题满分40分）</strong></p>
+                <p>已知 $a_1,a_2,\dots,a_n\in\mathbb{R}^+$，$\sum_{i=1}^n a_i=n$，求证：
+                    \[
+                    \sum_{i=1}^n \dfrac{a_i}{a_{i+1}^2+2025a_{i+1}} \ge \dfrac{n^2}{2026\left(\sum_{i=1}^n a_i a_{i+1}\right)}
+                    \]
+                这里 $a_{n+1}=a_1$。
+                </p>
+            </div>
+
+            <div class="problem-item">
+                <p><strong>二、（本题满分40分）</strong></p>
+                <p>如图，$O$、$H$ 分别为 $\triangle ABC$ 的外心和垂心，点 $D$、$E$、$F$ 分别在 $BC$、$CA$、$AB$ 上，满足 $DB=DE$，$DF=CF$，证明：$\odot(AEH)$、$\odot(AFO)$、$\odot(DOH)$ 三圆共点。</p>
+                <img src="epi255.png" alt="几何图" class="geometry-img">
+            </div>
+
+            <div class="problem-item">
+                <p><strong>三、（本题满分50分）</strong></p>
+                <p>给定整数 $N\ge2025$，设 $a_1,a_2,\dots,a_n$ 均为区间 $[2,N]$ 中的正整数，且对任意 $1\le k\le n$，有 $\prod_{i=1}^k a_i+2025$ 为完全平方数，证明：
+                    \[
+                    n<2^{\frac{4N}{\log_2 N}}(\log_2 N + 1)+20
+                    \]
+                </p>
+            </div>
+
+            <div class="problem-item">
+                <p><strong>四、（本题满分50分）</strong></p>
+                <p>设 $\mathcal{A}=\{A_1,A_2,\dots,A_m\}$ 是 $\Omega=\{1,2,\dots,n\}$ 的子集构成的集合族，满足：</p>
+                <ol type="1">
+                    <li>对任意 $1\le i<j\le m$，$A_i\cap A_j\ne\emptyset$；</li>
+                    <li>对任意 $1\le i,j\le m$，$i\ne j$，$A_i\not\subseteq A_j$。</li>
+                </ol>
+                <p>试求 $m$ 的最大值。</p>
+            </div>
+        </div>
+
+        <!-- 成绩统计 -->
+        <div class="score-section">
+            <h3 class="score-title">📊 成绩统计</h3>
+            <div class="score-grid">
+                <div class="score-item">
+                    <span class="score-label">一试填空平均分</span>
+                    <span class="score-value">5.85 / 6.99 / 5.35 / 4.09 / 0.70 / 2.15 / 1.58 / 2.53</span>
+                </div>
+                <div class="score-item">
+                    <span class="score-label">一试平均分</span>
+                    <span class="score-value">32.94</span>
+                </div>
+                <div class="score-item">
+                    <span class="score-label">一试最高分</span>
+                    <span class="score-value">92.00</span>
+                </div>
+                <div class="score-item">
+                    <span class="score-label">二试平均分</span>
+                    <span class="score-value">10.76 / 8.07 / 2.45 / 5.45</span>
+                </div>
+                <div class="score-item">
+                    <span class="score-label">二试总均分</span>
+                    <span class="score-value">58.10</span>
+                </div>
+                <div class="score-item">
+                    <span class="score-label">总最高分</span>
+                    <span class="score-value">226.00</span>
+                </div>
+                <div class="score-item">
+                    <span class="score-label">200分及以上</span>
+                    <span class="score-value">3人</span>
+                </div>
+            </div>
+            <p class="score-note">※ 一试填空题按题号顺序排列；二试平均分为各题平均分。大题平均分未知。</p>
+        </div>
+
+        <div class="footer-note">
+            <span>📧 2132653207@qq.com</span> ｜ <span>📞 +86 18960991652</span> ｜ <span>💬 wxid_tu5b4crgr14h22</span>
+        </div>
+    </div>
+</body>
+</html>
